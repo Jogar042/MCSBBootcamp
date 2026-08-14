@@ -18,7 +18,10 @@ dependencies = [
   "scipy>=1.14",
   "matplotlib>=3.9",
   # Quarto executes a notebook through jupyter, so the build needs a kernel even though no human opens one.
-  "ipykernel>=6.29",
+  #
+  # Held below 7 deliberately. ipykernel 7 is a rewrite of the kernel machinery, and VSCode's Jupyter extension hung indefinitely against it in a Codespace --- "Run All" never started, with no process burning any cpu, because the connection handshake never completed. Nothing here caught it, because the build and every local check execute notebooks through nbclient, which is a different path from the one a student uses.
+  # The whole point of this environment is that a student clicks Run and it works, so it tracks what the ecosystem is actually tested against rather than the newest release.
+  "ipykernel>=6.29,<7",
   # Needed at run time rather than build time: requirement (2c) is a student opening the .ipynb in JupyterLab inside a Codespace.
   # It also supplies the `jupyter` command that `quarto check jupyter` looks for.
   "jupyterlab>=4.2",
