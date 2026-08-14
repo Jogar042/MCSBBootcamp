@@ -1,0 +1,14 @@
+# Copied to .gitignore in the published repository by scripts/publish.sh.
+#
+# Named without the leading dot on purpose: a real .gitignore in publish/ would apply to this directory of the source repository rather than to the published one.
+#
+# Almost nothing is ignored there --- the whole point of that repository is that the built site is committed --- so this covers only what a reader creates locally after cloning.
+
+# Built by `uv sync` from the pyproject.toml and uv.lock committed beside it.
+.venv/
+
+# Jupyter leftovers from running the notebooks.
+.ipynb_checkpoints/
+__pycache__/
+
+.DS_Store

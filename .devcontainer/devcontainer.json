@@ -1,0 +1,49 @@
+// The environment a student gets when they open this repo in a GitHub Codespace.
+//
+// The point of it is that we control the image, so "it works on my machine" and "it works for the student" are the same claim: uv sync builds the .venv from the same pyproject.toml and uv.lock that produced the figures baked into the published html.
+//
+// Covers requirements (2b) and (2c) --- the notebooks running in the Codespace's VSCode UI, and in JupyterLab inside that same Codespace.
+{
+  "name": "MCSB Bootcamp",
+
+  // Matches .python-version at the repo root. uv would happily fetch its own interpreter, but starting from the right one keeps `uv sync` to a single dependency install on first open.
+  "image": "mcr.microsoft.com/devcontainers/python:1-3.13-bookworm",
+
+  "features": {
+    // Only needed to *build* the site --- students running notebooks never invoke it.
+    // Here so that the Codespace is also a working authoring environment, since scripts/deploy.sh is otherwise the one thing about this repo that a Codespace could not do.
+    "ghcr.io/rocker-org/devcontainer-features/quarto-cli:1": {}
+  },
+
+  // Three steps, and the second and third are what make "Open in JupyterLab" work.
+  //
+  // 1. uv is installed rather than assumed: the base image has pip but no uv.
+  //    `uv sync --frozen` refuses to update the lockfile, so a Codespace can never quietly resolve different versions than the ones that built the site.
+  //
+  // 2. JupyterLab again, this time outside the venv. GitHub launches JupyterLab by running `jupyter-lab` on the container's PATH, and a copy that exists only in .venv/bin is not on it --- the menu entry appears and then fails. The venv copy is still the one a student gets from `uv run jupyter lab`.
+  //
+  // 3. The venv registered as a named kernel, so that system JupyterLab can see it. Without this a student opening a notebook in JupyterLab gets the bare system python, which has no numpy, and the notebook fails on its first import while the same file runs perfectly in the VSCode UI beside it.
+  "postCreateCommand": "pip install --no-cache-dir uv jupyterlab && uv sync --frozen && uv run python -m ipykernel install --user --name mcsb --display-name 'Python (MCSB Bootcamp)'",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-toolsai.jupyter",
+        "quarto.quarto"
+      ],
+      "settings": {
+        // Preselects the project venv as the interpreter, so a student opening an .ipynb is not asked to pick a kernel before anything will run.
+        "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+        "python.terminal.activateEnvironment": true
+      }
+    }
+  },
+
+  // JupyterLab's default port, for requirement (2c).
+  // Start it from a terminal in the Codespace with:  uv run jupyter lab
+  "forwardPorts": [8888],
+  "portsAttributes": {
+    "8888": { "label": "JupyterLab", "onAutoForward": "notify" }
+  }
+}

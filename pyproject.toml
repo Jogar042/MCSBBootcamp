@@ -1,0 +1,29 @@
+# The Python environment the lecture notebooks execute in.
+#
+# This file and uv.lock beside it are the whole dependency story: `uv sync` builds an identical .venv from them on this machine and in a Codespace, which is what keeps a figure baked into the html at build time and the same figure a student generates by running the .ipynb from being two different pictures.
+#
+# Not a package --- there is nothing here to import or install, only a set of dependencies --- hence `package = false` below.
+#
+# Changing anything here changes every rendered figure, so scripts/deploy.sh folds this file and uv.lock into GLOBAL_HASH and the whole cache busts. See the note about GLOBAL_HASH in CLAUDE.md.
+
+[project]
+name = "mcsb-bootcamp"
+version = "0.1.0"
+description = "Execution environment for the MCSB Bootcamp lecture notebooks"
+requires-python = ">=3.12"
+
+dependencies = [
+  # The numerical stack the notebooks actually teach with.
+  "numpy>=2.0",
+  "scipy>=1.14",
+  "matplotlib>=3.9",
+  # Quarto executes a notebook through jupyter, so the build needs a kernel even though no human opens one.
+  "ipykernel>=6.29",
+  # Needed at run time rather than build time: requirement (2c) is a student opening the .ipynb in JupyterLab inside a Codespace.
+  # It also supplies the `jupyter` command that `quarto check jupyter` looks for.
+  "jupyterlab>=4.2",
+  "jupyter-cache>=1.0.1",
+]
+
+[tool.uv]
+package = false
