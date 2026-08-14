@@ -10,9 +10,25 @@
   "image": "mcr.microsoft.com/devcontainers/python:1-3.13-bookworm",
 
   "features": {
+    // JupyterLab, installed the way GitHub documents rather than with pip.
+    //
+    // This is what makes the "Open in JupyterLab" menu entry work. Installing it with `pip install jupyterlab` in postCreateCommand does put it in the container --- and the interactive terminal finds it --- but the scripts land in ~/.local/bin, which is not on the PATH of the non-interactive launcher GitHub uses, and the entry fails with "we were unable to connect to your codespace in JupyterLab".
+    //
+    // `version: none` because the base image already supplies python; this feature is here only for the JupyterLab it installs.
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "none",
+      "installJupyterlab": true
+    },
+
     // Only needed to *build* the site --- students running notebooks never invoke it.
     // Here so that the Codespace is also a working authoring environment, since scripts/deploy.sh is otherwise the one thing about this repo that a Codespace could not do.
     "ghcr.io/rocker-org/devcontainer-features/quarto-cli:1": {}
+  },
+
+  // Belt and braces for the PATH problem described above: anything pip installed
+  // for the container user stays reachable, whoever is doing the launching.
+  "remoteEnv": {
+    "PATH": "${containerEnv:PATH}:/home/vscode/.local/bin"
   },
 
   // Three steps, and the second and third are what make "Open in JupyterLab" work.
@@ -20,10 +36,10 @@
   // 1. uv is installed rather than assumed: the base image has pip but no uv.
   //    `uv sync --frozen` refuses to update the lockfile, so a Codespace can never quietly resolve different versions than the ones that built the site.
   //
-  // 2. JupyterLab again, this time outside the venv. GitHub launches JupyterLab by running `jupyter-lab` on the container's PATH, and a copy that exists only in .venv/bin is not on it --- the menu entry appears and then fails. The venv copy is still the one a student gets from `uv run jupyter lab`.
+  // 2. The venv registered as a named kernel, so the JupyterLab installed by the feature above can see it. Without this a student opening a notebook in JupyterLab gets the bare system python, which has no numpy, and the notebook fails on its first import while the same file runs perfectly in the VSCode UI beside it.
   //
-  // 3. The venv registered as a named kernel, so that system JupyterLab can see it. Without this a student opening a notebook in JupyterLab gets the bare system python, which has no numpy, and the notebook fails on its first import while the same file runs perfectly in the VSCode UI beside it.
-  "postCreateCommand": "pip install --no-cache-dir uv jupyterlab && uv sync --frozen && uv run python -m ipykernel install --user --name mcsb --display-name 'Python (MCSB Bootcamp)'",
+  // JupyterLab itself is no longer installed here --- see the python feature above for why.
+  "postCreateCommand": "pip install --no-cache-dir uv && uv sync --frozen && uv run python -m ipykernel install --user --name mcsb --display-name 'Python (MCSB Bootcamp)'",
 
   "customizations": {
     "vscode": {
