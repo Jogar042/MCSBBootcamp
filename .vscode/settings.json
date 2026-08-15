@@ -1,0 +1,33 @@
+{
+  // Workspace settings, shared with the published repository by scripts/publish.sh.
+  //
+  // These live here rather than in .devcontainer/devcontainer.json so that changing them only needs a `git pull`, not a container rebuild --- the same arrangement as the sibling 260808 repo.
+  // The cost is that they also apply to a local VS Code window opened on this folder, not only to a Codespace.
+
+  // Turn off the AI chat surfaces.
+  // The panel crowds an already busy window, and in a course whose projects are the exercise it offers to answer the question the student is meant to work out.
+  "chat.commandCenter.enabled": false,
+  "chat.disableAIFeatures": true,
+  "github.copilot.enable": { "*": false },
+  "workbench.secondarySideBar.defaultVisibility": "hidden",
+
+  // Open the README, rendered, when the window opens with nothing else restored.
+  // Complements customizations.codespaces.openFiles in devcontainer.json, which fires only on a codespace's first open and only in the web client; this one applies every time.
+  "workbench.startupEditor": "readme",
+
+  // The virtual environment lives inside the workspace, so without this VS Code watches and indexes several thousand library files it has no reason to care about --- noticeable on a 2-core Codespace.
+  "files.watcherExclude": {
+    "**/.venv/**": true,
+    "**/.jupyter_cache/**": true,
+    "**/_freeze/**": true
+  },
+  "search.exclude": {
+    "**/.venv": true,
+    "**/.jupyter_cache": true,
+    "**/_freeze": true
+  },
+
+  // Preselects the project environment, so opening a notebook does not start with a kernel prompt.
+  // Also set in devcontainer.json for the Codespace; here it covers a local window too.
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python"
+}

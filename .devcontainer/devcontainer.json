@@ -58,9 +58,9 @@
         "ms-toolsai.jupyter",
         "quarto.quarto"
       ],
+      // Editor settings are NOT here. They live in .vscode/settings.json, which reaches a student with a `git pull` rather than a container rebuild --- see the note at the top of that file.
+      // Only the extension list stays, since that genuinely is a property of the container.
       "settings": {
-        // Preselects the project venv as the interpreter, so a student opening an .ipynb is not asked to pick a kernel before anything will run.
-        "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
         "python.terminal.activateEnvironment": true
       }
     }
