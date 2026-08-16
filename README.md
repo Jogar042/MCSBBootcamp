@@ -28,6 +28,22 @@ That button builds a machine in the cloud with Python, numpy, scipy and matplotl
 Give it a few minutes the first time.
 When it opens, this README opens with it — click a notebook above and press **Run All**.
 
+### To fork
+
+Forking gives you your own copy of this repository, which you can push your work to.
+The projects in modules 1 and 2 are about exactly this, so you will have done it before you need it here.
+
+1. Click **Fork** at the top right of [this repository](https://github.com/allardjun/MCSBBootcamp).
+2. Leave the settings as they are and click **Create fork**.
+3. Open a Codespace on *your* fork rather than on this one — the green **Code** button on your copy.
+
+Work in your fork if you want to keep what you write.
+A codespace opened on this repository is yours to run and experiment in, but you cannot push to it, and republishing the course overwrites the files.
+
+One thing to expect: **the first codespace you open on your fork will take several minutes longer than one opened here.**
+This repository keeps a prebuilt image ready, and a fork does not inherit it.
+It is slow once, not every time.
+
 ### If you would rather use JupyterLab
 
 Codespaces can open straight into JupyterLab instead of the VSCode interface, with no extra step once you have set it once:
