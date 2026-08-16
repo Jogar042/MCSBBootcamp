@@ -11,8 +11,9 @@
   "github.copilot.enable": { "*": false },
   "workbench.secondarySideBar.defaultVisibility": "hidden",
 
-  // Open the README, rendered, when the window opens with nothing else restored.
-  // Complements customizations.codespaces.openFiles in devcontainer.json, which fires only on a codespace's first open and only in the web client; this one applies every time.
+  // Open the README *rendered*, not as raw markdown, when the window opens with nothing else restored.
+  // This is the whole navigation surface --- its links are how a student reaches a notebook --- so the preview is the point, and clickable links are what it buys.
+  // devcontainer.json deliberately carries no `openFiles` key: that opens a plain text editor and, firing first, pre-empts this.
   "workbench.startupEditor": "readme",
 
   // The virtual environment lives inside the workspace, so without this VS Code watches and indexes several thousand library files it has no reason to care about --- noticeable on a 2-core Codespace.

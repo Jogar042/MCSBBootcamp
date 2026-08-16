@@ -42,15 +42,10 @@
   "postCreateCommand": "pip install --no-cache-dir uv && uv sync --frozen && uv run python -m ipykernel install --user --name mcsb --display-name 'Python (MCSB Bootcamp)'",
 
   "customizations": {
-    // Opens the README the first time this codespace is opened in the web client.
+    // Deliberately NO `codespaces: { openFiles: [...] }` here.
     //
-    // There is no URL parameter that opens a particular file in a codespace --- the codespace does not exist yet when the link is clicked --- so a student arriving from the website would otherwise land at a bare file tree and have to find their way to docs/.
-    // The README is written as an index of the notebooks, with relative links that open each one when clicked in the rendered preview, which turns that navigation into a single click.
-    //
-    // First open only, and the web client only. A student whose default editor is JupyterLab gets JupyterLab's own file browser instead, which already opens at the workspace root.
-    "codespaces": {
-      "openFiles": ["README.md"]
-    },
+    // It opens a file as a *text editor*, which put the README on screen as raw markdown --- and because it fires first, it pre-empted `workbench.startupEditor: "readme"` in .vscode/settings.json, which is the setting that opens it rendered.
+    // The README is the navigation surface, so its links have to be clickable, which means the rendered view and therefore startupEditor alone.
 
     "vscode": {
       "extensions": [
