@@ -28,21 +28,45 @@ That button builds a machine in the cloud with Python, numpy, scipy and matplotl
 Give it a few minutes the first time.
 When it opens, this README opens with it — click a notebook above and press **Run All**.
 
-### To fork
+### Keeping your work
 
-Forking gives you your own copy of this repository, which you can push your work to.
-The projects in modules 1 and 2 are about exactly this, so you will have done it before you need it here.
+The codespace you open is yours, and it lasts.
+It stops itself when you go idle, and it is not deleted until 30 days after you last connected — and connecting resets that clock.
+A week of on-and-off work is well within it.
+
+What it does not do is keep your work safe.
+A codespace is eventually deleted whether or not you have pushed anything, so the rule is simple: **push before you walk away.**
+
+**You do not need to fork first.**
+Commit and push exactly as you normally would:
+
+```sh
+git add -p
+git commit -m "what I did"
+git push
+```
+
+The first time you push, GitHub notices you cannot write to this repository, makes a fork of it under your own account, and points your codespace at that fork.
+Your work lands in your copy, and you did not have to set anything up.
+
+Two things worth knowing:
+
+- A stopped codespace still uses part of your storage allowance.
+  Delete the ones you have finished with, from [your codespaces](https://github.com/codespaces).
+- Nothing you do here can affect the course repository.
+  Push freely.
+
+#### If you would rather fork by hand
+
+Forking deliberately is what modules 1 and 2 are about, so you may well prefer to do it yourself:
 
 1. Click **Fork** at the top right of [this repository](https://github.com/allardjun/MCSBBootcamp).
 2. Leave the settings as they are and click **Create fork**.
-3. Open a Codespace on *your* fork rather than on this one — the green **Code** button on your copy.
+3. Open a codespace on *your* fork — the green **Code** button on your copy.
 
-Work in your fork if you want to keep what you write.
-A codespace opened on this repository is yours to run and experiment in, but you cannot push to it, and republishing the course overwrites the files.
-
-One thing to expect: **the first codespace you open on your fork will take several minutes longer than one opened here.**
-This repository keeps a prebuilt image ready, and a fork does not inherit it.
-It is slow once, not every time.
+One thing to expect if you go this way: **the first codespace you open on your own fork takes several minutes longer.**
+This repository keeps a prebuilt image ready and a fork does not inherit it.
+Opening the codespace from here and letting your first push create the fork avoids that wait entirely.
 
 ### If you would rather use JupyterLab
 
