@@ -2244,7 +2244,7 @@ vertical-align: -.125em;
 </header>
 
 
-<div id="798f6067" class="cell" data-execution_count="1">
+<div id="798f6067" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> solve_ivp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2253,7 +2253,7 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="direct-negative-feedback">1. Direct negative feedback</h2>
 <p>Gene A’s protein represses gene A. <code>Kaa</code> is the strength of that repression, and <code>gamma_ma0</code> the baseline rate of mRNA production it acts on.</p>
 <p>The three parameter sets are chosen so that the <em>steady state</em> is roughly the same in all three; what changes is how the system gets there.</p>
-<div id="cell-fig-direct-negative" class="cell" data-execution_count="2">
+<div id="cell-fig-direct-negative" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>delta_ma <span class="op">=</span> <span class="fl">0.05</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>gamma_pa <span class="op">=</span> <span class="fl">0.02</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>delta_pa <span class="op">=</span> <span class="fl">0.01</span></span>
@@ -2314,7 +2314,7 @@ Figure 1: Direct negative feedback at three strengths, from none on the left to
 <section id="indirect-negative-feedback" class="level2">
 <h2 class="anchored" data-anchor-id="indirect-negative-feedback">2. Indirect negative feedback</h2>
 <p>Gene A activates gene B, and gene B’s protein represses gene A. An external input signal drives A’s production, stepping up at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>60</mn></mrow><annotation encoding="application/x-tex">t = 60</annotation></semantics></math> s and again at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>2000</mn></mrow><annotation encoding="application/x-tex">t = 2000</annotation></semantics></math> s.</p>
-<div class="cell" data-execution_count="3">
+<div class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>delta_ma <span class="op">=</span> <span class="fl">0.08</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>gamma_pa <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>delta_pa <span class="op">=</span> <span class="dv">1</span></span>
@@ -2385,7 +2385,7 @@ Figure 1: Direct negative feedback at three strengths, from none on the left to
 <span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>    fig.tight_layout()</span>
 <span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div id="fig-indirect-negative" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="3">
+<div id="fig-indirect-negative" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="4">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-indirect-negative-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-display">
@@ -2435,7 +2435,7 @@ Figure 2
 <section id="double-negative-feedback" class="level2">
 <h2 class="anchored" data-anchor-id="double-negative-feedback">3. Double negative feedback</h2>
 <p>A represses B and B represses A, with every parameter jittered a little from run to run. This is the motif that makes a switch: which of the two genes wins is decided by where the run happens to start.</p>
-<div id="cell-fig-double-negative-traces" class="cell" data-execution_count="4">
+<div id="cell-fig-double-negative-traces" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">6</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>noisiness <span class="op">=</span> <span class="fl">0.1</span></span>
@@ -2511,7 +2511,7 @@ Figure 3: Nine runs of the double-negative-feedback motif from random starting 
 </div>
 </div>
 </div>
-<div id="cell-fig-double-negative-histograms" class="cell" data-execution_count="5">
+<div id="cell-fig-double-negative-histograms" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fig, (ax_a, ax_b) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="fl">4.5</span>))</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>ax_a.hist(storage_A, <span class="dv">50</span>)</span>
@@ -2537,7 +2537,7 @@ Figure 4: Where the thousand runs ended up, one histogram per gene.
 </div>
 </div>
 </div>
-<div id="cell-fig-double-negative-scatter" class="cell" data-execution_count="6">
+<div id="cell-fig-double-negative-scatter" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>))</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>ax.scatter(storage_A, storage_B, <span class="dv">5</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>ax.set_box_aspect(<span class="dv">1</span>)</span>
@@ -2561,7 +2561,7 @@ Figure 5: The same thousand runs, plotted against each other.
 <section id="incoherent-feed-forward" class="level2">
 <h2 class="anchored" data-anchor-id="incoherent-feed-forward">4. Incoherent feed-forward</h2>
 <p>A activates B, A activates C, and B represses C. C therefore receives the same signal twice, once with each sign, and by two paths of different lengths.</p>
-<div id="cell-fig-incoherent-feedforward" class="cell" data-execution_count="7">
+<div id="cell-fig-incoherent-feedforward" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>delta_ma <span class="op">=</span> <span class="fl">0.05</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>gamma_pa <span class="op">=</span> <span class="fl">0.1</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>delta_pa <span class="op">=</span> <span class="fl">0.02</span></span>
@@ -2631,7 +2631,7 @@ Figure 6: Incoherent feed-forward. The pulse in the bottom panel is the motif�
 </section>
 <section id="the-repressilator" class="level2">
 <h2 class="anchored" data-anchor-id="the-repressilator">5. The Repressilator</h2>
-<div id="cell-fig-repressilator" class="cell" data-execution_count="8">
+<div id="cell-fig-repressilator" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>delta_ma <span class="op">=</span> <span class="dv">100</span> <span class="op">*</span> <span class="fl">0.05</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>gamma_pa <span class="op">=</span> <span class="dv">100</span> <span class="op">*</span> <span class="fl">0.1</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>delta_pa <span class="op">=</span> <span class="dv">100</span> <span class="op">*</span> <span class="fl">0.02</span></span>

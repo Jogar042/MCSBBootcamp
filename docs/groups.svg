@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="800" height="130" viewBox="0 0 800 130" displayInline="False">
+<defs>
+</defs>
+<rect x="17" y="30" width="240" height="95" fill="#ffffff" stroke-width="2" stroke="#dee2e6" />
+<text x="22" y="55" font-size="20" fill="black" font-family="'Source Sans 3', system-ui, sans-serif" font-weight="600">Team Lectern</text>
+<text x="22" y="75" font-size="20" fill="black" font-family="'Source Sans 3', system-ui, sans-serif">Sienna</text>
+<text x="22" y="95" font-size="20" fill="black" font-family="'Source Sans 3', system-ui, sans-serif">Yuhe</text>
+<text x="22" y="115" font-size="20" fill="black" font-family="'Source Sans 3', system-ui, sans-serif">Joshua</text>
+<rect x="277" y="30" width="240" height="95" fill="#ffffff" stroke-width="2" stroke="#dee2e6" />
+<text x="282" y="55" font-size="20" fill="black" font-family="'Source Sans 3', system-ui, sans-serif" font-weight="600">Team Window</text>
+<text x="282" y="75" font-size="20" fill="black" font-family="'Source Sans 3', system-ui, sans-serif">Matin</text>
+<text x="282" y="95" font-size="20" fill="black" font-family="'Source Sans 3', system-ui, sans-serif">Megan</text>
+<text x="282" y="115" font-size="20" fill="black" font-family="'Source Sans 3', system-ui, sans-serif">Yifan</text>
+<rect x="537" y="30" width="240" height="95" fill="#ffffff" stroke-width="2" stroke="#dee2e6" />
+<text x="542" y="55" font-size="20" fill="black" font-family="'Source Sans 3', system-ui, sans-serif" font-weight="600">Team Door</text>
+<text x="542" y="75" font-size="20" fill="black" font-family="'Source Sans 3', system-ui, sans-serif">Daniel</text>
+<text x="542" y="95" font-size="20" fill="black" font-family="'Source Sans 3', system-ui, sans-serif">Waldo</text>
+<text x="542" y="115" font-size="20" fill="black" font-family="'Source Sans 3', system-ui, sans-serif">John</text>
+<text x="5" y="23" font-size="20" fill="black" font-family="'Source Sans 3', system-ui, sans-serif">Friday, 21 August</text>
+</svg>

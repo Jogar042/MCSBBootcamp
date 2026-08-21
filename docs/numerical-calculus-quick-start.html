@@ -2249,7 +2249,7 @@ vertical-align: -.125em;
 </header>
 
 
-<div id="d6b47d60" class="cell" data-execution_count="1">
+<div id="d6b47d60" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> solve_ivp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2257,7 +2257,7 @@ vertical-align: -.125em;
 <section id="the-coffee-bean-model" class="level2">
 <h2 class="anchored" data-anchor-id="the-coffee-bean-model">The coffee bean model</h2>
 <p>A jar holds <code>N</code> scoops of coffee. Each day you drink one scoop’s worth and top the jar back up with decaf, so the fraction of the jar that is still caffeinated shrinks by a factor of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mn>1</mn><mi>/</mi><mi>N</mi></mrow><annotation encoding="application/x-tex">1 - 1/N</annotation></semantics></math> every day.</p>
-<div id="cell-fig-coffee" class="cell" data-execution_count="2">
+<div id="cell-fig-coffee" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">10</span>  <span class="co"># number of scoops in each jar</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>n_max <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> N  <span class="co"># max number of days to simulate</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2311,15 +2311,15 @@ Figure 1: Fraction of the jar still caffeinated, day by day, for a ten-scoop ja
 <p>The second way of thinking about a differential equation is as a rule that tells you, given the state of a system at time <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>, how it is going to change.</p>
 <p>In this case, for the model to make a prediction, we need to state an initial condition.</p>
 <p>A gene produces protein at a constant rate <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math> (copies per hour). The proteins are removed at a per-molecule rate <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math> (1/hrs).</p>
-<div id="c865b6a0" class="cell" data-execution_count="3">
+<div id="c865b6a0" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dP/dt = a - b*P</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>If the protein promotes its own expression, then one model of this is:</p>
-<div id="0a068271" class="cell" data-execution_count="4">
+<div id="0a068271" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dP/dt = (a_0 + a_1*P) - b*P</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>If the protein promotes its own degradation, then one model of this is:</p>
-<div id="dda1178c" class="cell" data-execution_count="5">
+<div id="dda1178c" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dP/dt = a - (b_0 + b_1*P)*P</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Question: why did the modeller choose to put an asymmetry between production (constant) and removal (linear)?</p>
@@ -2329,7 +2329,7 @@ Figure 1: Fraction of the jar still caffeinated, day by day, for a ten-scoop ja
 <section id="euler-method-and-more-complicated-methods" class="level3">
 <h3 class="anchored" data-anchor-id="euler-method-and-more-complicated-methods">Euler method, and more complicated methods</h3>
 <p>Thinking about an ODE as a rule that states how a system will change, there is an obvious way to simulate numerical solutions: pick a small <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">dt</annotation></semantics></math> and step forward just as you would for a discrete-time system. This is the Forward Euler method.</p>
-<div id="cell-fig-euler" class="cell" data-execution_count="6">
+<div id="cell-fig-euler" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dt <span class="op">=</span> <span class="fl">0.01</span>  <span class="co"># time step</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>a_0 <span class="op">=</span> <span class="dv">500</span>  <span class="co"># molecules per hour</span></span>
@@ -2373,7 +2373,7 @@ Figure 2: Forward Euler solution of the self-activating gene model, at <math di
 </section>
 <section id="solving-an-ode-with-a-library-solver" class="level3">
 <h3 class="anchored" data-anchor-id="solving-an-ode-with-a-library-solver">Solving an ODE with a library solver</h3>
-<div id="cell-fig-solve-ivp" class="cell" data-execution_count="7">
+<div id="cell-fig-solve-ivp" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> dPdt(P):</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;The model: given the protein level P, how fast is P changing?&quot;&quot;&quot;</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (a_0 <span class="op">+</span> a_1 <span class="op">*</span> P) <span class="op">-</span> b <span class="op">*</span> P</span>
@@ -2413,7 +2413,7 @@ Figure 3: The same model solved with an adaptive Runge–Kutta method.
 </div>
 </div>
 <p>Let’s explore the solution for different values of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mn>1</mn></msub><annotation encoding="application/x-tex">a_1</annotation></semantics></math>.</p>
-<div id="cell-fig-a1-sweep" class="cell" data-execution_count="8">
+<div id="cell-fig-a1-sweep" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> a_1 <span class="kw">in</span> [<span class="dv">0</span>, <span class="fl">0.1</span>, <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">10</span>]:</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2450,7 +2450,7 @@ Figure 4: The self-activating gene model for eight strengths of feedback.
 <p>Now take</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>x</mi><mi>/</mi><mi>d</mi><mi>t</mi><mo>=</mo><msup><mi>x</mi><mn>2</mn></msup><mo>,</mo><mspace width="2.0em"></mspace><mi>x</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0.2</mn></mrow><annotation encoding="application/x-tex"> dx/dt = x^2, \qquad x(0) = 0.2 </annotation></semantics></math></p>
 <p>whose solution is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>5</mn><mo>−</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">x(t) = 1/(5 - t)</annotation></semantics></math>: it reaches infinity at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">t = 5</annotation></semantics></math>, which is called finite time blow-up. Ask a numerical solver to integrate to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">t = 6</annotation></semantics></math> and it cannot get there.</p>
-<div id="746deeee" class="cell" data-execution_count="9">
+<div id="746deeee" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> blow_up(t, x):</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">**</span><span class="dv">2</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2472,7 +2472,7 @@ got as far as t = 4.9999, where x = 1.023e+14</code></pre>
 <p>If there are multiple quantities to track — multiple molecules, or multiple species — then an ODE model may be a system of coupled ODEs:</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>u</mi><mi>/</mi><mi>d</mi><mi>t</mi><mo>=</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo>,</mo><mi>w</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>d</mi><mi>w</mi><mi>/</mi><mi>d</mi><mi>t</mi><mo>=</mo><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo>,</mo><mi>w</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>u</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>u</mi><mn>0</mn></msub><mo>,</mo><mspace width="1.0em"></mspace><mi>w</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>w</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex"> du/dt = f(u, w), \qquad dw/dt = g(u, w), \qquad u(0) = u_0, \quad w(0) = w_0 </annotation></semantics></math></p>
 <p>Here is gene expression where the protein is an activator: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>u</mi><annotation encoding="application/x-tex">u</annotation></semantics></math> is RNA, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>w</mi><annotation encoding="application/x-tex">w</annotation></semantics></math> is protein.</p>
-<div id="cell-fig-timeseries" class="cell" data-execution_count="10">
+<div id="cell-fig-timeseries" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> dxdt(t, state):</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;du/dt and dw/dt for the RNA-protein system, given the state [u, w].&quot;&quot;&quot;</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    u, w <span class="op">=</span> state</span>

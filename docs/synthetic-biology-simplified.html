@@ -2251,14 +2251,14 @@ vertical-align: -.125em;
 
 
 <p>A simplified version of the model from Guido, Collins et al., 2006.</p>
-<div id="a61b33ee" class="cell" data-execution_count="1">
+<div id="a61b33ee" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> solve_ivp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="binding-and-unbinding-of-a-tf-to-a-promoter" class="level2">
 <h2 class="anchored" data-anchor-id="binding-and-unbinding-of-a-tf-to-a-promoter">1. Binding and unbinding of a TF to a promoter</h2>
-<div id="cell-fig-solver" class="cell" data-execution_count="2">
+<div id="cell-fig-solver" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># parameters</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>kon <span class="op">=</span> <span class="fl">0.01</span>  <span class="co"># attachment rate, s^-1 uM^-1</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>koff <span class="op">=</span> <span class="fl">0.005</span>  <span class="co"># unbinding rate s^-1</span></span>
@@ -2304,7 +2304,7 @@ Figure 1: The same two-state model, integrated with an adaptive Runge–Kutta m
 <section id="parameter-sweep" class="level3">
 <h3 class="anchored" data-anchor-id="parameter-sweep">1.1 Parameter sweep</h3>
 <p>Run the model once for each of a thousand concentrations of transcription factor, and keep only the last value: the steady-state number of bound promoters.</p>
-<div id="cell-fig-sweep-binding" class="cell" data-execution_count="3">
+<div id="cell-fig-sweep-binding" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>param_array <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="fl">10.001</span>, <span class="fl">0.01</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>b_storage <span class="op">=</span> np.zeros(param_array.size)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2343,7 +2343,7 @@ Figure 2: Steady-state bound promoters against transcription factor concentrati
 <section id="creation-and-destruction-of-mrna-and-protein" class="level3">
 <h3 class="anchored" data-anchor-id="creation-and-destruction-of-mrna-and-protein">2.1 Creation and destruction of mRNA and protein</h3>
 <p>Leave the promoter aside for a moment. mRNA is made at a constant rate and degrades; protein is made in proportion to the mRNA present and degrades.</p>
-<div id="cell-fig-mrna-protein" class="cell" data-execution_count="4">
+<div id="cell-fig-mrna-protein" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># parameters</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>gamma_m <span class="op">=</span> <span class="fl">0.2</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>delta_m <span class="op">=</span> <span class="fl">0.02</span></span>
@@ -2391,7 +2391,7 @@ Figure 3: mRNA and protein rising to their steady states, the protein lagging b
 <section id="combine-the-rna-model-with-promoter-binding-state" class="level3">
 <h3 class="anchored" data-anchor-id="combine-the-rna-model-with-promoter-binding-state">2.2 Combine the RNA model with promoter binding state</h3>
 <p>Now put the two halves together. The promoter has four states rather than two — empty, repressor bound, activator bound, both bound — and the rate at which mRNA is produced depends on which state it is in.</p>
-<div id="cell-fig-promoter-states" class="cell" data-execution_count="5">
+<div id="cell-fig-promoter-states" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># parameters</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>kon <span class="op">=</span> <span class="fl">0.001</span>  <span class="co"># s^-1 uM^-1</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>koff <span class="op">=</span> <span class="fl">0.0005</span>  <span class="co"># s^-1</span></span>
@@ -2466,7 +2466,7 @@ Figure 4: Above, the promoter moving between its four states; below, the mRNA a
 <section id="parameter-sweep-across-activator-concentration" class="level3">
 <h3 class="anchored" data-anchor-id="parameter-sweep-across-activator-concentration">2.3 Parameter sweep across activator concentration</h3>
 <p>Same sweep as 1.1, but over the concentration of activating transcription factor, and now reading off the steady-state protein.</p>
-<div id="cell-fig-sweep-activator" class="cell" data-execution_count="6">
+<div id="cell-fig-sweep-activator" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>param_array <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">101</span>, <span class="dv">1</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># param_array = np.logspace(-1, 3, 200)  # uncomment to make a log plot</span></span>
@@ -2507,7 +2507,7 @@ Figure 5: Steady-state product against activator concentration, with the inhibi
 <h3 class="anchored" data-anchor-id="positive-feedback">2.4 Positive feedback</h3>
 <p>Add a second gene on the same promoter whose protein is itself an activator of that promoter. The state grows from six variables to eight.</p>
 <p>The curve from 2.3 is drawn underneath in pale grey, so the effect of the feedback can be read off one pair of axes rather than by flipping between two figures. Both sweeps have to run over the same <code>param_array</code> for that to line up — so if you uncomment the <code>logspace</code> line to make a log plot, uncomment it in 2.3 as well.</p>
-<div id="cell-fig-sweep-feedback" class="cell" data-execution_count="7">
+<div id="cell-fig-sweep-feedback" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>param_array <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">101</span>, <span class="dv">1</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># param_array = np.logspace(-1, 3, 200)  # uncomment to make a log plot</span></span>
