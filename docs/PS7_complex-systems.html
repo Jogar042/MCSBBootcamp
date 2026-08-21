@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
 width: 0.8em;
 margin: 0 0.8em 0.2em -1em;  vertical-align: middle;
 }
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+}
+pre.numberSource { margin-left: 3em; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -2169,8 +2204,15 @@ vertical-align: -.125em;
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-  
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="PS7_complex-systems.ipynb" download="PS7_complex-systems.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li><li><a href="PS7_complex-systems.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#part-1-the-effect-of-the-inhibitor" id="toc-part-1-the-effect-of-the-inhibitor" class="nav-link active" data-scroll-target="#part-1-the-effect-of-the-inhibitor">Part 1: The effect of the inhibitor</a></li>
+  <li><a href="#part-2-the-effect-of-the-activator" id="toc-part-2-the-effect-of-the-activator" class="nav-link" data-scroll-target="#part-2-the-effect-of-the-activator">Part 2: The effect of the activator</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="PS7_complex-systems.ipynb" download="PS7_complex-systems.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li><li><a href="PS7_complex-systems.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -2199,7 +2241,34 @@ vertical-align: -.125em;
 </header>
 
 
-<p><em>To be written.</em></p>
+<p>Consider the simplified Guido–Collins system with an activator transcription factor and an inhibitor transcription factor.</p>
+<p>You may use the code in the <a href="https://allardjun.github.io/MCSBBootcamp/synthetic-biology-simplified.html">Synthetic biology, simplified</a> notebook, section 2.3. Its <code>dxdt</code> already takes both <code>C</code>, the activator concentration, and <code>I</code>, the inhibitor concentration.</p>
+<div id="2a943b90" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> solve_ivp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="7eeb0984" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The model, copied from the Synthetic biology, simplified notebook, section 2.3.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="part-1-the-effect-of-the-inhibitor" class="level2">
+<h2 class="anchored" data-anchor-id="part-1-the-effect-of-the-inhibitor">Part 1: The effect of the inhibitor</h2>
+<p>Assume the concentration of inhibitor is fixed at 10 uM.</p>
+<p>Plot the steady-state amount of protein as a function of the activator concentration, but make the axis showing concentration of activator a logarithmic axis.</p>
+<p>What is the concentration of activator that results in half its maximal effect? This is called the EC50 of the activator.</p>
+<div id="3c64f04f" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="part-2-the-effect-of-the-activator" class="level2">
+<h2 class="anchored" data-anchor-id="part-2-the-effect-of-the-activator">Part 2: The effect of the activator</h2>
+<p>Assume the concentration of activator is fixed at 10 uM.</p>
+<p>Plot the steady-state amount of protein as a function of the inhibitor concentration.</p>
+<p>What is the concentration of inhibitor that results in half its maximal inhibition? This is called the IC50 of the inhibitor.</p>
+<div id="192a507c" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
 
 </main>
 <!-- /main column -->
