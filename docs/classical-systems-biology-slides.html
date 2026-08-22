@@ -981,6 +981,42 @@ display: block;
 margin-left: auto;
 margin-right: 0; }
 </style>
+  <!-- Asks search engines not to index this site. Pulled into the html and revealjs output of every document here through `include-in-header` in each source directory's `_metadata.yml`.
+
+  At the root of the repository rather than in one of the source directories because it applies to all four of them, and a copy per directory is four things to keep in step. Each `_metadata.yml` reaches it as `../_noindex.html`.
+
+  `noindex` is the directive that actually works. `robots.txt` does not: it is only honoured at the root of a host, and this site is a project page at allardjun.github.io/MCSBBootcamp/, so a robots.txt shipped in the site would be served at /MCSBBootcamp/robots.txt where no crawler reads it. The host's real robots.txt would have to come from a repository named allardjun.github.io, which does not exist.
+
+  Do not add a `Disallow` for these pages later without removing this. A crawler that is disallowed from fetching a page never sees the `noindex` inside it, so blocking makes this unenforceable --- the two measures cancel rather than compound. If a robots.txt ever becomes available, the sound split is `noindex` on the html and `Disallow` on the .pdf and .ipynb, which have no head for a meta tag.
+
+  `nofollow` is here so that the links out of the landing page --- into the published repository and into the Modern DevOps site, both public --- do not pass this site's existence along as a signal. `noarchive` asks that no cached copy be shown, which matters for a site whose decks still carry visible `.todo` blocks: a cached copy of a draft outlives the draft.
+
+  A syllabus page, when there is one, needs a `syllabus/_metadata.yml` of its own carrying the same key, plus an entry in GLOBAL_HASH. Nothing here will notice its absence.
+
+  This is a request, not a control. It is honoured by Google, Bing and DuckDuckGo, and ignored by anything that chooses to. Nothing served over the public internet is private; the repository's visibility is the only real boundary. -->
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <!-- Restores pinch-zoom on the decks. Loaded by every deck in slides/ through `include-in-header` under `revealjs:`.
+
+  Quarto's reveal template hardcodes this, at pandoc/template.html line 23:
+
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+  `user-scalable=no` with `maximum-scale=1.0` is a WCAG 2.1 1.4.4 failure, and it bites hardest exactly where the deck is already least readable: reveal scales a 1600x1200 canvas to the window, so a portrait phone renders body text at about seven pixels, and this is what stops a reader zooming in on it. iOS Safari has ignored `user-scalable=no` since iOS 10; Android Chrome honours it unless the reader has found the "Force enable zoom" accessibility setting, so Android phone users are the population it actually blocks.
+
+  Rewritten rather than overridden with a second `<meta>`, for two reasons. The template line is not in a swappable partial --- the only ones reveal exposes are title-slide and toc-slide --- so the declarative alternative is forking Quarto's whole template, which then has to be re-merged at every upgrade. And a second meta relies on later-wins, which is real browser behaviour but is applied *per property*: a second tag that did not itself name `maximum-scale` would leave the 1.0 cap standing and change nothing. Rewriting in place leaves exactly one viewport meta in the DOM, saying one thing.
+
+  `include-in-header` lands at the end of `<head>`, so the meta already exists when this runs, and it runs before first layout.
+
+  A deck with JavaScript disabled shows no slides at all, so nothing is lost by doing this in script rather than in markup. -->
+  <script>
+    (function () {
+      var permissive = "width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes";
+      var tags = document.querySelectorAll('meta[name="viewport"]');
+      for (var i = 0; i < tags.length; i++) {
+        tags[i].setAttribute("content", permissive);
+      }
+    })();
+  </script>
 </head>
 <body class="quarto-light">
   <div class="reveal">
