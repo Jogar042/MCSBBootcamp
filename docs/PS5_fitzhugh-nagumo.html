@@ -2269,13 +2269,13 @@ This is a request, not a control. It is honoured by Google, Bing and DuckDuckGo,
 <ol type="a">
 <li>Confirm that for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ϵ</mi><mo>=</mo><mn>0.08</mn></mrow><annotation encoding="application/x-tex">\epsilon=0.08</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>0.5</mn></mrow><annotation encoding="application/x-tex">a=0.5</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><mn>0.2</mn></mrow><annotation encoding="application/x-tex">b=0.2</annotation></semantics></math>, the system is oscillatory.</li>
 </ol>
-<div id="72dc1779" class="cell">
+<div id="d3ee3511" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="2" type="a">
 <li>Confirm that for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ϵ</mi><mo>=</mo><mn>0.08</mn></mrow><annotation encoding="application/x-tex">\epsilon=0.08</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>1.0</mn></mrow><annotation encoding="application/x-tex">a=1.0</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><mn>0.2</mn></mrow><annotation encoding="application/x-tex">b=0.2</annotation></semantics></math>, the system has the following property: if you choose initial conditions <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mn>1.5</mn></mrow><annotation encoding="application/x-tex">v(0)=-1.5</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mn>0.5</mn></mrow><annotation encoding="application/x-tex">w(0)=-0.5</annotation></semantics></math>, the system evolves directly towards a stable steady state, but if you choose initial conditions <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0.0</mn></mrow><annotation encoding="application/x-tex">v(0)=0.0</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mn>0.5</mn></mrow><annotation encoding="application/x-tex">w(0)=-0.5</annotation></semantics></math>, the system moves away from the steady state before eventually converging towards it. This behavior is called <em>excitability</em>. At these parameters, what is the steady state value of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>w</mi><annotation encoding="application/x-tex">w</annotation></semantics></math>?</li>
 </ol>
-<div id="06287848" class="cell">
+<div id="d05958e6" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
@@ -2295,15 +2295,18 @@ I_0 &amp; \qquad t_\mathrm{start} &lt; t &lt; t_\mathrm{stop}\\
 0 &amp; \qquad \text{otherwise}
 \end{cases}
 </annotation></semantics></math></p>
-<p>or, in Matlab,</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="va">I0</span> <span class="op">=</span> <span class="fl">1.0</span><span class="op">;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="va">tStart</span> <span class="op">=</span> <span class="fl">40</span><span class="op">;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="va">tStop</span> <span class="op">=</span> <span class="fl">47</span><span class="op">;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="va">I</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">t</span>) <span class="va">I0</span><span class="op">*</span>(<span class="va">t</span><span class="op">&gt;</span><span class="va">tStart</span>)<span class="op">.*</span>(<span class="va">t</span><span class="op">&lt;</span><span class="va">tStop</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>or, in code,</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>I0 <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>t_start <span class="op">=</span> <span class="dv">40</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>t_stop <span class="op">=</span> <span class="dv">47</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> I(t):</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> I0 <span class="op">*</span> (t <span class="op">&gt;</span> t_start) <span class="op">*</span> (t <span class="op">&lt;</span> t_stop)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ol start="3" type="a">
 <li>At the excitable parameters from above (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>1.0</mn></mrow><annotation encoding="application/x-tex">a=1.0</annotation></semantics></math>), simulate the system with initial conditions at the steady state (or very close), and simulate a 7-second injection starting at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>40</mn></mrow><annotation encoding="application/x-tex">t=40</annotation></semantics></math> as above.</li>
 </ol>
-<div id="01555da7" class="cell">
+<div id="b5e2e227" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
@@ -2323,29 +2326,40 @@ I_0 &amp; \qquad t_\mathrm{start} &lt; t &lt; t_\mathrm{stop}\\
 <ol start="4" type="a">
 <li>Write code to simulate these ten cells. There will be 20 equations, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>w</mi><annotation encoding="application/x-tex">w</annotation></semantics></math> for each cell.</li>
 </ol>
-<div id="baf0c352" class="cell">
+<div id="6ebfca06" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol type="i">
 <li><p>Assume there is no injection current. We expect all ten cells to settle at the same steady state. Make two plots. First, plot a time series of the membrane potential of all ten cells as a function of time. Second, make a movie of the voltage in all ten cells, where the horizontal axis is the cell number.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">% movie</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">nt</span><span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="va">numel</span>(<span class="va">T</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">figure</span>(<span class="fl">5</span>)<span class="op">;</span> <span class="va">clf</span><span class="op">;</span> <span class="va">hold</span> <span class="va">on</span><span class="op">;</span> <span class="va">box</span> <span class="va">on</span><span class="op">;</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">plot</span>(<span class="va">X</span>(<span class="va">nt</span><span class="op">,</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>))<span class="op">;</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">set</span>(<span class="va">gca</span><span class="op">,</span><span class="ss">&#39;ylim&#39;</span><span class="op">,</span> [<span class="op">-</span><span class="fl">2.5</span><span class="op">,</span><span class="fl">2.5</span>])</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">xlabel</span>(<span class="ss">&#39;Cell&#39;</span>)<span class="op">;</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="va">ylabel</span>(<span class="ss">&#39;Voltage&#39;</span>)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="va">drawnow</span><span class="op">;</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># movie</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> animation</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> HTML</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>(line,) <span class="op">=</span> ax.plot(V[<span class="dv">0</span>])</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="op">-</span><span class="fl">2.5</span>, <span class="fl">2.5</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">&quot;Cell&quot;</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">&quot;Voltage&quot;</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> frame(nt):</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    line.set_ydata(V[nt])</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (line,)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>movie <span class="op">=</span> animation.FuncAnimation(fig, frame, frames<span class="op">=</span><span class="bu">len</span>(T), interval<span class="op">=</span><span class="dv">30</span>)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>plt.close(fig)  <span class="co"># otherwise the first frame is drawn a second time, as a still</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>HTML(movie.to_jshtml())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>where <code>V[nt]</code> is the voltage of all ten cells at time <code>T[nt]</code>.</p></li>
 </ol>
-<div id="ce93e8ac" class="cell">
+<div id="94bc79cc" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="2" type="i">
 <li><p>Now assume that the fourth cell (and only the fourth cell) receives an injection current <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">I(t)</annotation></semantics></math> as above, between <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>40</mn></mrow><annotation encoding="application/x-tex">t=40</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>47</mn></mrow><annotation encoding="application/x-tex">t=47</annotation></semantics></math>. Make a time series with all ten cells. Make a movie with the voltage for all cells.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <p>Hint: You do not need to make it generalize to different numbers of cells. In other words, don’t try to make it work for an arbitrary number of cells and then set the number of cells to 10. Just make it work for 10 cells. (Unless you want to make it generalized.)</p></li>
 </ol>
-<div id="0e7dc9a8" class="cell">
+<div id="290ac7be" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>

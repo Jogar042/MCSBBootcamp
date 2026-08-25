@@ -50,3 +50,4 @@ uv sync
 ```
 
 Then open any notebook above in VSCode and select the `.venv` interpreter, or run `uv run jupyter lab`.
+To get the kernel listed under the same name as in a Codespace, see **[LOCAL-QUICKSTART.md](LOCAL-QUICKSTART.md)**.

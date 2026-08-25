@@ -2263,7 +2263,7 @@ This is a request, not a control. It is honoured by Google, Bing and DuckDuckGo,
 </header>
 
 
-<div id="a14956a5" class="cell" data-execution_count="1">
+<div id="35e925db" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> solve_ivp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2325,15 +2325,15 @@ Figure 1: Fraction of the jar still caffeinated, day by day, for a ten-scoop ja
 <p>The second way of thinking about a differential equation is as a rule that tells you, given the state of a system at time <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>, how it is going to change.</p>
 <p>In this case, for the model to make a prediction, we need to state an initial condition.</p>
 <p>A gene produces protein at a constant rate <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math> (copies per hour). The proteins are removed at a per-molecule rate <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math> (1/hrs).</p>
-<div id="f7d0d53b" class="cell" data-execution_count="3">
+<div id="6a1b228a" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dP/dt = a - b*P</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>If the protein promotes its own expression, then one model of this is:</p>
-<div id="a9bb4af0" class="cell" data-execution_count="4">
+<div id="a72726b5" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dP/dt = (a_0 + a_1*P) - b*P</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>If the protein promotes its own degradation, then one model of this is:</p>
-<div id="5b60b162" class="cell" data-execution_count="5">
+<div id="6c86e8c5" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dP/dt = a - (b_0 + b_1*P)*P</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Question: why did the modeller choose to put an asymmetry between production (constant) and removal (linear)?</p>
@@ -2465,7 +2465,7 @@ Figure 4: The self-activating gene model for eight strengths of feedback.
 <p>Now take</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>x</mi><mi>/</mi><mi>d</mi><mi>t</mi><mo>=</mo><msup><mi>x</mi><mn>2</mn></msup><mo>,</mo><mspace width="2.0em"></mspace><mi>x</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0.2</mn></mrow><annotation encoding="application/x-tex"> dx/dt = x^2, \qquad x(0) = 0.2 </annotation></semantics></math></p>
 <p>whose solution is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>5</mn><mo>−</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">x(t) = 1/(5 - t)</annotation></semantics></math>: it reaches infinity at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">t = 5</annotation></semantics></math>, which is called finite time blow-up. Ask a numerical solver to integrate to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">t = 6</annotation></semantics></math> and it cannot get there.</p>
-<div id="91cbfc41" class="cell" data-execution_count="9">
+<div id="b8bf1c67" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> blow_up(t, x):</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">**</span><span class="dv">2</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2501,11 +2501,11 @@ got as far as t = 4.9999, where x = 1.023e+14</code></pre>
 <span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>sol <span class="op">=</span> solve_ivp(dxdt, [<span class="dv">0</span>, <span class="dv">150</span>], [<span class="fl">0.0</span>, <span class="fl">0.0</span>], t_eval<span class="op">=</span>np.linspace(<span class="dv">0</span>, <span class="dv">150</span>, <span class="dv">1000</span>))</span>
 <span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> sol.t</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> sol.y.T  <span class="co"># transposed so that X[:, 0] and X[:, 1] read like the Matlab version</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>rna, protein <span class="op">=</span> sol.y</span>
 <span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>ax.plot(T, X[:, <span class="dv">0</span>], <span class="st">&quot;-r&quot;</span>)  <span class="co"># red for RNA</span></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>ax.plot(T, X[:, <span class="dv">1</span>], <span class="st">&quot;-&quot;</span>, color<span class="op">=</span>[<span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">1</span>])  <span class="co"># purple for protein</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>ax.plot(T, rna, <span class="st">&quot;-r&quot;</span>)</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>ax.plot(T, protein, <span class="st">&quot;-&quot;</span>, color<span class="op">=</span>[<span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">1</span>])</span>
 <span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">&quot;Molecular concentration (micromolar)&quot;</span>)</span>
 <span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">&quot;Time (hours)&quot;</span>)</span>
 <span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2525,7 +2525,7 @@ Figure 5: RNA and protein concentrations approaching their steady state.
 <p>Notes:</p>
 <ul>
 <li><p><code>solve_ivp</code> hands your function the whole state as one array and expects the whole set of derivatives back as one list. It then gets unpacked with <code>u, w = state</code> on the first line. This lets the two equations below be easier to read.</p></li>
-<li><p><code>solve_ivp</code> returns <code>sol.y</code> with one <em>row</em> per variable, where Matlab’s <code>X</code> has one column per variable. Then we transpose it with <code>.T</code>.</p></li>
+<li><p><code>solve_ivp</code> returns <code>sol.y</code> with one <em>row</em> per variable, so unpacking it with <code>rna, protein = sol.y</code> gives one array per variable, the same way <code>u, w = state</code> does inside the function.</p></li>
 </ul>
 </section>
 

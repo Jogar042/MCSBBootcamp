@@ -2258,7 +2258,7 @@ This is a request, not a control. It is honoured by Google, Bing and DuckDuckGo,
 </header>
 
 
-<div id="51957537" class="cell" data-execution_count="1">
+<div id="bdb5e6f4" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> solve_ivp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2373,8 +2373,8 @@ Figure 1: Direct negative feedback at three strengths, from none on the left to
 <span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Start well before t = 0 so the model has settled by the time the input arrives.</span></span>
 <span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>    sol <span class="op">=</span> solve_ivp(dxdt, [<span class="op">-</span><span class="fl">10000.0</span>, t_max], [<span class="dv">20</span>, <span class="dv">20</span>, <span class="dv">0</span>, <span class="dv">0</span>])</span>
 <span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Matlab&#39;s y-axis autoscales to the data inside the current x-limits; matplotlib&#39;s autoscales to everything handed to plot.</span></span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The run starts at t = -10000 only so that the model has settled by the time the input arrives, so drop that part here and the two pictures agree.</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    <span class="co"># matplotlib autoscales the y-axis to everything handed to plot, not to what falls inside the x-limits, so the settling run before t = 0 would squash the part worth looking at.</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Drop it here rather than relying on set_xlim to hide it.</span></span>
 <span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>    visible <span class="op">=</span> sol.t <span class="op">&gt;=</span> <span class="dv">0</span></span>
 <span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>    T <span class="op">=</span> sol.t[visible]</span>
 <span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> sol.y.T[visible]</span>

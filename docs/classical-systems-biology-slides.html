@@ -2350,6 +2350,47 @@ window.QuartoSupport = function () {
         ]
       });
     </script>
+    <!-- Hands Cmd/Ctrl + Option + arrow back to the browser. Loaded by every deck in slides/ through `include-after-body` under `revealjs:` in _metadata.yml.
+
+    Reveal decides whether to look at a key in Keyboard.onDocumentKeyDown, and the modifier filter there reads:
+
+        l = !( [32,37,38,39,40,63,78,80,191].indexOf(e.keyCode) !== -1 && e.shiftKey || e.altKey )
+            && ( e.shiftKey || e.altKey || e.ctrlKey || e.metaKey );
+        if ( a || n || r || l ) return;
+
+    `&&` binds tighter than `||`, so that reads "bail out when a modifier is held, unless it is shift on a navigation key --- or unless it is alt at all". Any alt-modified key therefore reaches the navigation switch, which advances the deck and calls preventDefault(); a browser shortcut built on alt is swallowed on the way. Cmd+Left alone escapes this, since meta on its own leaves `l` true.
+
+    Two shortcuts that matters for, and the second is the one worth the file:
+
+      Cmd+Option+Left/Right   Chrome on macOS: the previous/next tab. A deck presented from one tab of several traps the presenter in it.
+      Ctrl+Option+arrow       VoiceOver: the whole of its navigation. Reveal answers all four arrows, so a screen-reader user reading a slide moves the deck instead of the cursor.
+
+    So the condition covers all four arrows and both of meta and ctrl, rather than only the pair that prompted it.
+
+    Nothing is lost. Alt+arrow is a real reveal binding --- it navigates with `skipFragments: e.altKey`, stepping over the fragments on a slide --- and it still works, since it is unmodified alt that reveal is being left to handle.
+
+    Returning false from `keyboardCondition` makes reveal return before it reaches preventDefault(), which is the point: the key has to arrive at the browser unclaimed. Stopping the event instead --- a capture-phase listener --- would work equally well, and this is the documented route.
+
+    The existing condition is wrapped rather than replaced. Quarto ships reveal.js-menu, which installs one of its own at plugin init to swallow keys while the menu is open, by mutating the config object in place. Replacing it outright would leave the arrows navigating the deck behind an open menu.
+
+    `include-after-body` lands at template.html line 323, well below the Reveal.initialize() call at line 80, so `Reveal` is defined here. It is initialize()'s plugin init that is still in flight, which is what the `ready` event waits for --- and waiting for it is what makes the menu's condition already present to wrap. -->
+    <script>
+      (function () {
+        function install() {
+          var previous = Reveal.getConfig().keyboardCondition;
+          Reveal.configure({
+            keyboardCondition: function (event) {
+              var arrow = event.key === "ArrowLeft" || event.key === "ArrowRight" ||
+                          event.key === "ArrowUp" || event.key === "ArrowDown";
+              if (arrow && event.altKey && (event.metaKey || event.ctrlKey)) return false;
+              return typeof previous === "function" ? previous(event) : true;
+            }
+          });
+        }
+        if (Reveal.isReady()) install();
+        else Reveal.on("ready", install);
+      })();
+    </script>
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")

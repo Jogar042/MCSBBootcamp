@@ -2265,7 +2265,7 @@ This is a request, not a control. It is honoured by Google, Bing and DuckDuckGo,
 
 
 <p>A simplified version of the model from Guido, Collins et al., 2006.</p>
-<div id="bf9ad5cd" class="cell" data-execution_count="1">
+<div id="514b87ec" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> solve_ivp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2294,11 +2294,11 @@ This is a request, not a control. It is honoured by Google, Bing and DuckDuckGo,
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>sol <span class="op">=</span> solve_ivp(dxdt, [<span class="fl">0.0</span>, <span class="dv">1000</span>], initial_condition)</span>
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> sol.t</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> sol.y.T  <span class="co"># transposed so that X[:, 0] and X[:, 1] read like the Matlab version</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>bound, unbound <span class="op">=</span> sol.y</span>
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>ax.plot(T, X[:, <span class="dv">0</span>], <span class="st">&quot;-g&quot;</span>)  <span class="co"># green for bound</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>ax.plot(T, X[:, <span class="dv">1</span>], <span class="st">&quot;-r&quot;</span>)  <span class="co"># red for unbound</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>ax.plot(T, bound, <span class="st">&quot;-g&quot;</span>)</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>ax.plot(T, unbound, <span class="st">&quot;-r&quot;</span>)</span>
 <span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">&quot;Number of promoters in each state&quot;</span>)</span>
 <span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">&quot;Time (seconds)&quot;</span>)</span>
 <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2324,19 +2324,16 @@ Figure 1: The same two-state model, integrated with an adaptive Runge–Kutta m
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i_param, C <span class="kw">in</span> <span class="bu">enumerate</span>(param_array):</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Nothing is redefined here.</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The Matlab has to rebuild dbdt, dudt and dxdt on every pass; dxdt above reads C when it is called rather than when it was defined, so assigning C is enough.</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    sol <span class="op">=</span> solve_ivp(dxdt, [<span class="fl">0.0</span>, <span class="dv">1000</span>], [<span class="dv">0</span>, <span class="dv">100</span>])</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    b_storage[i_param] <span class="op">=</span> sol.y[<span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>ax.plot(param_array, b_storage, <span class="st">&quot;-b&quot;</span>)</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">&quot;Concentration of transcription factor (uM)&quot;</span>)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">&quot;Number of bound promoters&quot;</span>)</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co"># ax.set_xscale(&quot;log&quot;)</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    sol <span class="op">=</span> solve_ivp(dxdt, [<span class="fl">0.0</span>, <span class="dv">1000</span>], [<span class="dv">0</span>, <span class="dv">100</span>])</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    b_storage[i_param] <span class="op">=</span> sol.y[<span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>ax.plot(param_array, b_storage, <span class="st">&quot;-b&quot;</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">&quot;Concentration of transcription factor (uM)&quot;</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">&quot;Number of bound promoters&quot;</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># ax.set_xscale(&quot;log&quot;)</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="fig-sweep-binding" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A curve rising steeply from zero and bending over towards a plateau just below one hundred, the classic saturating binding curve.">
 <figure class="quarto-float quarto-float-fig figure">
@@ -2380,11 +2377,11 @@ Figure 2: Steady-state bound promoters against transcription factor concentrati
 <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>sol <span class="op">=</span> solve_ivp(dxdt, [<span class="fl">0.0</span>, <span class="dv">600</span>], initial_condition)</span>
 <span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> sol.t</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> sol.y.T</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>mrna, protein <span class="op">=</span> sol.y</span>
 <span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>ax.plot(T, X[:, <span class="dv">0</span>], <span class="st">&quot;-r&quot;</span>)  <span class="co"># red for RNA</span></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>ax.plot(T, X[:, <span class="dv">1</span>], <span class="st">&quot;-&quot;</span>, color<span class="op">=</span>[<span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">1</span>])  <span class="co"># purple for protein</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>ax.plot(T, mrna, <span class="st">&quot;-r&quot;</span>)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>ax.plot(T, protein, <span class="st">&quot;-&quot;</span>, color<span class="op">=</span>[<span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">1</span>])</span>
 <span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">&quot;Concentration of RNA (red) and product (purple)&quot;</span>)</span>
 <span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">&quot;Time (seconds)&quot;</span>)</span>
 <span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2447,22 +2444,23 @@ Figure 3: mRNA and protein rising to their steady states, the protein lagging b
 <span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>sol <span class="op">=</span> solve_ivp(dxdt, [<span class="fl">0.0</span>, <span class="dv">1000</span>], initial_condition)</span>
 <span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> sol.t</span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> sol.y.T</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>p0, pr, pa, par, mrna, protein <span class="op">=</span> sol.y</span>
 <span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>fig, (ax_promoter, ax_product) <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">7</span>))</span>
 <span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>ax_promoter.plot(T, X[:, <span class="dv">0</span>:<span class="dv">4</span>])</span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>ax_promoter.set_ylabel(<span class="st">&quot;Number of promoters in each state&quot;</span>)</span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>ax_promoter.set_xlabel(<span class="st">&quot;Time (seconds)&quot;</span>)</span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>ax_promoter.legend([<span class="st">&quot;Empty&quot;</span>, <span class="st">&quot;repressor&quot;</span>, <span class="st">&quot;activator&quot;</span>, <span class="st">&quot;both&quot;</span>])</span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>ax_product.plot(T, X[:, <span class="dv">4</span>], <span class="st">&quot;-r&quot;</span>)  <span class="co"># red for RNA</span></span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>ax_product.plot(T, X[:, <span class="dv">5</span>], <span class="st">&quot;-&quot;</span>, color<span class="op">=</span>[<span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">1</span>])  <span class="co"># purple</span></span>
-<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>ax_product.set_ylabel(<span class="st">&quot;Concentration of RNA (red) and product (purple)&quot;</span>)</span>
-<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>ax_product.set_xlabel(<span class="st">&quot;Time (seconds)&quot;</span>)</span>
-<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>fig.tight_layout()</span>
-<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> state, label <span class="kw">in</span> <span class="bu">zip</span>((p0, pr, pa, par), (<span class="st">&quot;Empty&quot;</span>, <span class="st">&quot;repressor&quot;</span>, <span class="st">&quot;activator&quot;</span>, <span class="st">&quot;both&quot;</span>)):</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>    ax_promoter.plot(T, state, label<span class="op">=</span>label)</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>ax_promoter.set_ylabel(<span class="st">&quot;Number of promoters in each state&quot;</span>)</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>ax_promoter.set_xlabel(<span class="st">&quot;Time (seconds)&quot;</span>)</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>ax_promoter.legend()</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>ax_product.plot(T, mrna, <span class="st">&quot;-r&quot;</span>)</span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>ax_product.plot(T, protein, <span class="st">&quot;-&quot;</span>, color<span class="op">=</span>[<span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">1</span>])</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>ax_product.set_ylabel(<span class="st">&quot;Concentration of RNA (red) and product (purple)&quot;</span>)</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>ax_product.set_xlabel(<span class="st">&quot;Time (seconds)&quot;</span>)</span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>fig.tight_layout()</span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="fig-promoter-states" class="quarto-float quarto-figure quarto-figure-center anchored" alt="An upper panel with four curves: one falls from one towards zero, two rise to a bump near a quarter and come back down, and one rises to nine tenths. A lower panel has a red curve levelling off near twenty and a purple curve rising past it to about forty.">
 <figure class="quarto-float quarto-float-fig figure">
