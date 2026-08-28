@@ -8,7 +8,7 @@
 
 <meta name="author" content="Jun Allard">
 
-<title>Project 7: Complex systems and classical systems biology</title>
+<title>Project 5: Complex systems and classical systems biology</title>
 <style>
 
 code{white-space: pre-wrap;}
@@ -2225,13 +2225,13 @@ This is a request, not a control. It is honoured by Google, Bing and DuckDuckGo,
   <li><a href="#part-1-the-effect-of-the-inhibitor" id="toc-part-1-the-effect-of-the-inhibitor" class="nav-link active" data-scroll-target="#part-1-the-effect-of-the-inhibitor">Part 1: The effect of the inhibitor</a></li>
   <li><a href="#part-2-the-effect-of-the-activator" id="toc-part-2-the-effect-of-the-activator" class="nav-link" data-scroll-target="#part-2-the-effect-of-the-activator">Part 2: The effect of the activator</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="PS7_complex-systems.ipynb" download="PS7_complex-systems.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li><li><a href="PS7_complex-systems.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="PS5_complex-systems.ipynb" download="PS5_complex-systems.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li><li><a href="PS5_complex-systems.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Project 7: Complex systems and classical systems biology</h1>
+<h1 class="title">Project 5: Complex systems and classical systems biology</h1>
 <p class="subtitle lead">MCSB Bootcamp — Mathematical and Computational Track</p>
 </div>
 
@@ -2257,12 +2257,12 @@ This is a request, not a control. It is honoured by Google, Bing and DuckDuckGo,
 
 <p>Consider the simplified Guido–Collins system with an activator transcription factor and an inhibitor transcription factor.</p>
 <p>You may use the code in the <a href="https://allardjun.github.io/MCSBBootcamp/synthetic-biology-simplified.html">Synthetic biology, simplified</a> notebook, section 2.3. Its <code>dxdt</code> already takes both <code>C</code>, the activator concentration, and <code>I</code>, the inhibitor concentration.</p>
-<div id="9f6255d6" class="cell">
+<div id="ffcb7093" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> solve_ivp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="e06b3425" class="cell">
+<div id="6b80b583" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The model, copied from the Synthetic biology, simplified notebook, section 2.3.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="part-1-the-effect-of-the-inhibitor" class="level2">
@@ -2270,7 +2270,7 @@ This is a request, not a control. It is honoured by Google, Bing and DuckDuckGo,
 <p>Assume the concentration of inhibitor is fixed at 10 uM.</p>
 <p>Plot the steady-state amount of protein as a function of the activator concentration, but make the axis showing concentration of activator a logarithmic axis.</p>
 <p>What is the concentration of activator that results in half its maximal effect? This is called the EC50 of the activator.</p>
-<div id="14d85745" class="cell">
+<div id="a5eb3173" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
@@ -2279,7 +2279,7 @@ This is a request, not a control. It is honoured by Google, Bing and DuckDuckGo,
 <p>Assume the concentration of activator is fixed at 10 uM.</p>
 <p>Plot the steady-state amount of protein as a function of the inhibitor concentration.</p>
 <p>What is the concentration of inhibitor that results in half its maximal inhibition? This is called the IC50 of the inhibitor.</p>
-<div id="204bd324" class="cell">
+<div id="cb1898d8" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
