@@ -1,21 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 288.394 206" role="img" aria-label="Seating chart for Friday, 28 August: 4 groups of 2, arranged as in the room." font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#000000">
-  <title>Seating chart for Friday, 28 August: 4 groups of 2, arranged as in the room.</title>
-  <text x="12" y="24" font-weight="bold">Friday, 28 August</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 288.394 206" role="img" aria-label="Seating chart for Monday, 31 August: 4 groups of 2, arranged as in the room." font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#000000">
+  <title>Seating chart for Monday, 31 August: 4 groups of 2, arranged as in the room.</title>
+  <text x="12" y="24" font-weight="bold">Monday, 31 August</text>
   <text x="144.197" y="46" text-anchor="middle">↑ front of room</text>
   <rect x="12" y="62" width="127.197" height="61" fill="#ffffff" stroke="#000000" stroke-width="2" />
   <text x="20" y="82" font-weight="bold">Team Lectern</text>
-  <text x="20" y="97">Yuhe</text>
+  <text x="20" y="97">Joshua</text>
   <text x="20" y="112">Yifan</text>
   <rect x="149.197" y="62" width="127.197" height="61" fill="#ffffff" stroke="#000000" stroke-width="2" />
   <text x="157.197" y="82" font-weight="bold">Team Door</text>
-  <text x="157.197" y="97">Waldo</text>
-  <text x="157.197" y="112">John</text>
+  <text x="157.197" y="97">Megan</text>
+  <text x="157.197" y="112">Yuhe</text>
   <rect x="12" y="133" width="127.197" height="61" fill="#ffffff" stroke="#000000" stroke-width="2" />
   <text x="20" y="153" font-weight="bold">Team Window</text>
-  <text x="20" y="168">Joshua</text>
-  <text x="20" y="183">Sienna</text>
+  <text x="20" y="168">Daniel</text>
+  <text x="20" y="183">Waldo</text>
   <rect x="149.197" y="133" width="127.197" height="61" fill="#ffffff" stroke="#000000" stroke-width="2" />
   <text x="157.197" y="153" font-weight="bold">Team Back Corner</text>
-  <text x="157.197" y="168">Daniel</text>
-  <text x="157.197" y="183">Megan</text>
+  <text x="157.197" y="168">Sienna</text>
+  <text x="157.197" y="183">John</text>
 </svg>

@@ -2263,7 +2263,7 @@ This is a request, not a control. It is honoured by Google, Bing and DuckDuckGo,
 </header>
 
 
-<div id="86e0ddf1" class="cell" data-execution_count="1">
+<div id="32f7b0fe" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> solve_ivp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2337,21 +2337,21 @@ u(t) = \left(1 - \exp(-\zeta t/m)\right) \frac{q E_0}{m} t
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>d</mi><mi>P</mi></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mo>=</mo><mi>a</mi><mo>−</mo><mi>b</mi><mi>P</mi></mrow><annotation encoding="application/x-tex">
 \frac{dP}{dt} = a - bP
 </annotation></semantics></math></p>
-<div id="0c7a4d9e" class="cell" data-execution_count="3">
+<div id="d89f4640" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dP/dt = a - b*P</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>If the protein promotes its own expression, then one model of this is:</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>d</mi><mi>P</mi></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>a</mi><mn>0</mn></msub><mo>+</mo><msub><mi>a</mi><mn>1</mn></msub><mi>P</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>b</mi><mi>P</mi></mrow><annotation encoding="application/x-tex">
 \frac{dP}{dt} = \left(a_0 + a_1 P\right) - bP
 </annotation></semantics></math></p>
-<div id="d84bc647" class="cell" data-execution_count="4">
+<div id="16ae1311" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dP/dt = (a_0 + a_1*P) - b*P</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>If the protein promotes its own degradation, then one model of this is:</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>d</mi><mi>P</mi></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mo>=</mo><mi>a</mi><mo>−</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>b</mi><mn>0</mn></msub><mo>+</mo><msub><mi>b</mi><mn>1</mn></msub><mi>P</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">
 \frac{dP}{dt} = a - \left(b_0 + b_1 P\right) P
 </annotation></semantics></math></p>
-<div id="b4b66408" class="cell" data-execution_count="5">
+<div id="4df49382" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dP/dt = a - (b_0 + b_1*P)*P</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Question: why did the modeller choose to put an asymmetry between production (constant) and removal (linear)?</p>
@@ -2484,7 +2484,7 @@ u(t) = -\frac{a}{b} + C \exp(bt)
 x(t) = \frac{1}{5 - t}.
 </annotation></semantics></math></p>
 <p>It reaches infinity at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">t = 5</annotation></semantics></math>, which is called finite time blow-up. Ask a numerical solver to integrate to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">t = 6</annotation></semantics></math> and it cannot get there.</p>
-<div id="c495d185" class="cell" data-execution_count="9">
+<div id="441ca778" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> quadratic_rhs(t, x):</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">**</span><span class="dv">2</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
