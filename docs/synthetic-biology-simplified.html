@@ -2265,14 +2265,14 @@ This is a request, not a control. It is honoured by Google, Bing and DuckDuckGo,
 
 
 <p>A simplified version of the model from Guido, Collins et al., 2006.</p>
-<div id="80832b77" class="cell" data-execution_count="2">
+<div id="bb4fe4b0" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> solve_ivp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="binding-and-unbinding-of-a-tf-to-a-promoter" class="level2">
 <h2 class="anchored" data-anchor-id="binding-and-unbinding-of-a-tf-to-a-promoter">1. Binding and unbinding of a TF to a promoter</h2>
-<div id="cell-fig-solver" class="cell" data-execution_count="3">
+<div id="cell-fig-solver" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># parameters</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>kon <span class="op">=</span> <span class="fl">0.01</span>  <span class="co"># attachment rate, s^-1 uM^-1</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>koff <span class="op">=</span> <span class="fl">0.005</span>  <span class="co"># unbinding rate s^-1</span></span>
@@ -2318,7 +2318,7 @@ Figure 1: The same two-state model, integrated with an adaptive Runge–Kutta m
 <section id="parameter-sweep" class="level3">
 <h3 class="anchored" data-anchor-id="parameter-sweep">1.1 Parameter sweep</h3>
 <p>Run the model once for each of a thousand concentrations of transcription factor, and keep only the last value: the steady-state number of bound promoters.</p>
-<div id="cell-fig-sweep-binding" class="cell" data-execution_count="4">
+<div id="cell-fig-sweep-binding" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>param_array <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="fl">10.001</span>, <span class="fl">0.01</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>b_storage <span class="op">=</span> np.zeros(param_array.size)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2354,7 +2354,7 @@ Figure 2: Steady-state bound promoters against transcription factor concentrati
 <section id="creation-and-destruction-of-mrna-and-protein" class="level3">
 <h3 class="anchored" data-anchor-id="creation-and-destruction-of-mrna-and-protein">2.1 Creation and destruction of mRNA and protein</h3>
 <p>mRNA is made at a constant rate and degrades. Protein is made in proportion to the mRNA present and degrades.</p>
-<div id="cell-fig-mrna-protein" class="cell" data-execution_count="5">
+<div id="cell-fig-mrna-protein" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># parameters</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>gamma_m <span class="op">=</span> <span class="fl">0.2</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>delta_m <span class="op">=</span> <span class="fl">0.02</span></span>
@@ -2402,7 +2402,7 @@ Figure 3: mRNA and protein rising to their steady states, the protein lagging b
 <section id="combine-the-rna-model-with-promoter-binding-state" class="level3">
 <h3 class="anchored" data-anchor-id="combine-the-rna-model-with-promoter-binding-state">2.2 Combine the RNA model with promoter binding state</h3>
 <p>The promoter is the same two states as in section 1 — empty, or activator bound — and the rate at which mRNA is produced depends on which of the two it is in.</p>
-<div id="cell-fig-promoter-states" class="cell" data-execution_count="6">
+<div id="cell-fig-promoter-states" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># parameters</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>kon <span class="op">=</span> <span class="fl">0.001</span>  <span class="co"># s^-1 uM^-1</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>koff <span class="op">=</span> <span class="fl">0.0005</span>  <span class="co"># s^-1</span></span>
@@ -2470,33 +2470,25 @@ Figure 4: Above, the promoter moving between its two states; below, the mRNA an
 <section id="parameter-sweep-across-activator-concentration" class="level3">
 <h3 class="anchored" data-anchor-id="parameter-sweep-across-activator-concentration">2.3 Parameter sweep across activator concentration</h3>
 <p>Same sweep as 1.1, but over the concentration of activating transcription factor, and now reading off the steady-state protein.</p>
-<div id="cell-fig-sweep-activator" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Half-max activation is at the dissociation constant, Kd = koff/kon = 0.5 uM.</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Sweeping to ten times that puts the rise in the first fifth of the axis and gives the</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># rest to the plateau, which is the shape a measured dose-response curve has --- compare</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Guido et al. 2006, figure 1g. A sweep to 100 uM would be plateau almost all the way.</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>param_array <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">200</span>)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># param_array = np.logspace(-3, 2, 200)  # uncomment, with the set_xscale below, for a log plot</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Named rather than left as a generic g_storage because 2.4 draws it again underneath the feedback curve.</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>g_storage_no_feedback <span class="op">=</span> np.zeros(param_array.size)</span>
+<div id="cell-fig-sweep-activator" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>param_array <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">200</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>g_storage_no_feedback <span class="op">=</span> np.zeros(param_array.size)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i_param, C <span class="kw">in</span> <span class="bu">enumerate</span>(param_array):  <span class="co"># concentration of activatory TF (uM)</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    sol <span class="op">=</span> solve_ivp(dxdt, [<span class="fl">0.0</span>, <span class="dv">10000</span>], [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>])</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    g_storage_no_feedback[i_param] <span class="op">=</span> sol.y[<span class="dv">3</span>, <span class="op">-</span><span class="dv">1</span>]</span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co"># The slowest thing in the model is the promoter at low C, which relaxes on 1/koff = 2000 s.</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Run to 10000 s so the last value really is the steady state; at t = 100 this read a transient less than half way there, and the saturating shape came out of the kinetics rather than out of the binding.</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i_param, C <span class="kw">in</span> <span class="bu">enumerate</span>(param_array):  <span class="co"># concentration of activatory TF (uM)</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    sol <span class="op">=</span> solve_ivp(dxdt, [<span class="fl">0.0</span>, <span class="dv">10000</span>], [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>])</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    g_storage_no_feedback[i_param] <span class="op">=</span> sol.y[<span class="dv">3</span>, <span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>ax.plot(param_array, g_storage_no_feedback, <span class="st">&quot;-b&quot;</span>)</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">&quot;Concentration of activating TF (uM)&quot;</span>)</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">&quot;Concentration of product (uM)&quot;</span>)</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="dv">0</span>, <span class="dv">100</span>)</span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="co"># ax.set_xscale(&quot;log&quot;)  # uncomment together with the logspace sweep above</span></span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>ax.plot(param_array, g_storage_no_feedback, <span class="st">&quot;-b&quot;</span>)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">&quot;Concentration of activating TF (uM)&quot;</span>)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">&quot;Concentration of product (uM)&quot;</span>)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="dv">0</span>, <span class="dv">100</span>)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co"># ax.set_xscale(&quot;log&quot;)  # uncomment together with the logspace sweep above</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="fig-sweep-activator" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A saturating dose-response curve on linear axes. It starts at forty at zero activator, rises steeply through sixty at half a micromolar, and bends over into a long plateau reaching about seventy-six at five micromolar.">
 <figure class="quarto-float quarto-float-fig figure">
@@ -2515,67 +2507,60 @@ Figure 5: Steady-state product against activator concentration. The half-way po
 <h3 class="anchored" data-anchor-id="positive-feedback">2.4 Positive feedback</h3>
 <p>Add a second gene on the same promoter whose protein is itself an activator of that promoter. The state grows from four variables to six.</p>
 <p>The curve from 2.3 is drawn underneath in pale grey, so the effect of the feedback can be read off one pair of axes rather than by flipping between two figures. Both sweeps have to run over the same <code>param_array</code> for that to line up, so changing the range here means changing it in 2.3 as well.</p>
-<div id="cell-fig-sweep-feedback" class="cell" data-execution_count="8">
+<div id="cell-fig-sweep-feedback" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Same sweep as 2.3, and it has to stay the same for the two curves to line up.</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>param_array <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">200</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># param_array = np.logspace(-3, 2, 200)  # uncomment, with the set_xscale below, for a log plot</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>g_storage <span class="op">=</span> np.zeros(param_array.size)</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># parameters</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>kon <span class="op">=</span> <span class="fl">0.001</span>  <span class="co"># s^-1 uM^-1</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>koff <span class="op">=</span> <span class="fl">0.0005</span>  <span class="co"># s^-1</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>delta_m <span class="op">=</span> <span class="fl">0.05</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>gamma_p <span class="op">=</span> <span class="fl">0.02</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>delta_p <span class="op">=</span> <span class="fl">0.01</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co"># How much of its own activator the loop makes: at steady state p2 is roughly</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 2000 * gamma_p2 * gamma_m, so this value puts p2 near 0.2 uM against Kd = 0.5 uM.</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Enough to lift the floor and pull the curve left, and not so much that the promoter</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co"># saturates on its own product and stops responding to C --- at 0.1 it did exactly that.</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>gamma_p2 <span class="op">=</span> <span class="fl">1e-4</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>g_storage <span class="op">=</span> np.zeros(param_array.size)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># parameters</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>kon <span class="op">=</span> <span class="fl">0.001</span>  <span class="co"># s^-1 uM^-1</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>koff <span class="op">=</span> <span class="fl">0.0005</span>  <span class="co"># s^-1</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>delta_m <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>gamma_p <span class="op">=</span> <span class="fl">0.02</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>delta_p <span class="op">=</span> <span class="fl">0.01</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>gamma_p2 <span class="op">=</span> <span class="fl">1e-4</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> dxdt(t, state):</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;The two promoter states, then two mRNA-protein pairs, the second feeding back on the promoter.&quot;&quot;&quot;</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    b, u, m, p, m2, p2 <span class="op">=</span> state</span>
 <span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> dxdt(t, state):</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;The two promoter states, then two mRNA-protein pairs, the second feeding back on the promoter.&quot;&quot;&quot;</span></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    b, u, m, p, m2, p2 <span class="op">=</span> state</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    activator <span class="op">=</span> C <span class="op">+</span> p2</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    db_dt <span class="op">=</span> <span class="op">+</span>kon <span class="op">*</span> activator <span class="op">*</span> u <span class="op">-</span> koff <span class="op">*</span> b</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    du_dt <span class="op">=</span> <span class="op">-</span>kon <span class="op">*</span> activator <span class="op">*</span> u <span class="op">+</span> koff <span class="op">*</span> b</span>
 <span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># This is the feedback: the promoter sees the activator supplied from outside</span></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plus the activator the second gene has made for itself.</span></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    activator <span class="op">=</span> C <span class="op">+</span> p2</span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    db_dt <span class="op">=</span> <span class="op">+</span>kon <span class="op">*</span> activator <span class="op">*</span> u <span class="op">-</span> koff <span class="op">*</span> b</span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>    du_dt <span class="op">=</span> <span class="op">-</span>kon <span class="op">*</span> activator <span class="op">*</span> u <span class="op">+</span> koff <span class="op">*</span> b</span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>    gamma_m <span class="op">=</span> <span class="fl">1.0</span> <span class="op">*</span> u <span class="op">+</span> <span class="fl">2.0</span> <span class="op">*</span> b</span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>    dm_dt  <span class="op">=</span> <span class="op">+</span>gamma_m <span class="op">-</span> delta_m <span class="op">*</span> m</span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>    dp_dt  <span class="op">=</span> <span class="op">+</span>gamma_p  <span class="op">*</span> m <span class="op">-</span> delta_p <span class="op">*</span> p</span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>    dm2_dt <span class="op">=</span> <span class="op">+</span>gamma_m <span class="op">-</span> delta_m <span class="op">*</span> m2</span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>    dp2_dt <span class="op">=</span> <span class="op">+</span>gamma_p2 <span class="op">*</span> m2 <span class="op">-</span> delta_p <span class="op">*</span> p2</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    gamma_m <span class="op">=</span> <span class="fl">1.0</span> <span class="op">*</span> u <span class="op">+</span> <span class="fl">2.0</span> <span class="op">*</span> b</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    dm_dt  <span class="op">=</span> <span class="op">+</span>gamma_m <span class="op">-</span> delta_m <span class="op">*</span> m</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    dp_dt  <span class="op">=</span> <span class="op">+</span>gamma_p  <span class="op">*</span> m <span class="op">-</span> delta_p <span class="op">*</span> p</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>    dm2_dt <span class="op">=</span> <span class="op">+</span>gamma_m <span class="op">-</span> delta_m <span class="op">*</span> m2</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    dp2_dt <span class="op">=</span> <span class="op">+</span>gamma_p2 <span class="op">*</span> m2 <span class="op">-</span> delta_p <span class="op">*</span> p2</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [db_dt, du_dt, dm_dt, dp_dt, dm2_dt, dp2_dt]</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i_param, C <span class="kw">in</span> <span class="bu">enumerate</span>(param_array):  <span class="co"># external activatory transcription factor</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>    sol <span class="op">=</span> solve_ivp(dxdt, [<span class="fl">0.0</span>, <span class="dv">10000</span>], [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>])</span>
 <span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [db_dt, du_dt, dm_dt, dp_dt, dm2_dt, dp2_dt]</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>    g_storage[i_param] <span class="op">=</span> sol.y[<span class="dv">3</span>, <span class="op">-</span><span class="dv">1</span>]</span>
 <span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i_param, C <span class="kw">in</span> <span class="bu">enumerate</span>(param_array):  <span class="co"># external activatory transcription factor</span></span>
-<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>    sol <span class="op">=</span> solve_ivp(dxdt, [<span class="fl">0.0</span>, <span class="dv">10000</span>], [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>])</span>
-<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>    g_storage[i_param] <span class="op">=</span> sol.y[<span class="dv">3</span>, <span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a><span class="co"># 2.3&#39;s curve first, so the feedback one is drawn on top of it rather than behind it.</span></span>
-<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>ax.plot(param_array, g_storage_no_feedback, <span class="st">&quot;--&quot;</span>, color<span class="op">=</span><span class="st">&quot;0.7&quot;</span>, label<span class="op">=</span><span class="st">&quot;No feedback (2.3)&quot;</span>)</span>
-<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>ax.plot(param_array, g_storage, <span class="st">&quot;-b&quot;</span>, label<span class="op">=</span><span class="st">&quot;Positive feedback&quot;</span>)</span>
-<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">&quot;Concentration of activating TF (uM)&quot;</span>)</span>
-<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">&quot;Concentration of product (uM)&quot;</span>)</span>
-<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="dv">0</span>, <span class="dv">100</span>)</span>
-<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
-<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a><span class="co"># ax.set_xscale(&quot;log&quot;)  # uncomment together with the logspace sweep above</span></span>
-<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a><span class="co"># 2.3&#39;s curve first, so the feedback one is drawn on top of it rather than behind it.</span></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>ax.plot(param_array, g_storage_no_feedback, <span class="st">&quot;--&quot;</span>, color<span class="op">=</span><span class="st">&quot;0.7&quot;</span>, label<span class="op">=</span><span class="st">&quot;No feedback (2.3)&quot;</span>)</span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>ax.plot(param_array, g_storage, <span class="st">&quot;-b&quot;</span>, label<span class="op">=</span><span class="st">&quot;Positive feedback&quot;</span>)</span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">&quot;Concentration of activating TF (uM)&quot;</span>)</span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">&quot;Concentration of product (uM)&quot;</span>)</span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="dv">0</span>, <span class="dv">100</span>)</span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a><span class="co"># ax.set_xscale(&quot;log&quot;)  # uncomment together with the logspace sweep above</span></span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="fig-sweep-feedback" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Two saturating dose-response curves on one pair of linear axes, meeting in a common plateau near seventy-six by the right-hand edge. The pale grey dashed curve, without feedback, starts at forty at zero activator and passes sixty at half a micromolar. The solid blue curve, with positive feedback, starts higher at fifty-four and passes sixty earlier, at two tenths of a micromolar.">
 <figure class="quarto-float quarto-float-fig figure">

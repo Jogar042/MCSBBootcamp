@@ -2279,7 +2279,7 @@ This is a request, not a control. It is honoured by Google, Bing and DuckDuckGo,
 <li>Fast positive feedback plus slow negative feedback.</li>
 </ol>
 <p>What functional role could it play? Hint: We have discussed it before. There is a textbox at the end of the notebook you can use to record your answer.</p>
-<div id="2e44293c" class="cell">
+<div id="1c9b0c61" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> solve_ivp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2287,7 +2287,7 @@ This is a request, not a control. It is honoured by Google, Bing and DuckDuckGo,
 <section id="direct-negative-feedback" class="level2">
 <h2 class="anchored" data-anchor-id="direct-negative-feedback">1. Direct negative feedback</h2>
 <p>Three parameter sets are simulated: No negative feedback, intermediate amount of negative feedback, and lots of negative feedback.</p>
-<div id="95d32ee6" class="cell">
+<div id="90727cb3" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>delta_ma <span class="op">=</span> <span class="fl">0.05</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>gamma_pa <span class="op">=</span> <span class="fl">0.02</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>delta_pa <span class="op">=</span> <span class="fl">0.01</span></span>
@@ -2344,7 +2344,7 @@ This is a request, not a control. It is honoured by Google, Bing and DuckDuckGo,
 <section id="indirect-negative-feedback" class="level2">
 <h2 class="anchored" data-anchor-id="indirect-negative-feedback">2. Indirect negative feedback</h2>
 <p>Two parameter sets are simulated: without negative feedback, and with negative feedback. In both cases, a signal is introduced at 60 seconds. And then, an even larger signal is introduced at 2000 seconds. For clarity, the plot is shown for the first 400 seconds, and then the same simulation is shown for the first 4000 seconds.</p>
-<div id="86a3ecce" class="cell">
+<div id="ab746ad6" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>delta_ma <span class="op">=</span> <span class="fl">0.08</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>gamma_pa <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>delta_pa <span class="op">=</span> <span class="dv">1</span></span>
@@ -2428,7 +2428,7 @@ This is a request, not a control. It is honoured by Google, Bing and DuckDuckGo,
 <section id="double-negative-feedback" class="level2">
 <h2 class="anchored" data-anchor-id="double-negative-feedback">3. Double negative feedback</h2>
 <p>Many simulations are performed at slightly different parameter sets (randomly selected). The steady states for all these simulations are plotted together.</p>
-<div id="543e9ad6" class="cell">
+<div id="5b778e7d" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">6</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>noisiness <span class="op">=</span> <span class="fl">0.1</span></span>
@@ -2492,7 +2492,7 @@ This is a request, not a control. It is honoured by Google, Bing and DuckDuckGo,
 <span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>fig.tight_layout()</span>
 <span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="fa6ff380" class="cell">
+<div id="26f321e3" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fig, (ax_a, ax_b) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="fl">4.5</span>))</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>ax_a.hist(storage_A, <span class="dv">50</span>)</span>
@@ -2508,7 +2508,7 @@ This is a request, not a control. It is honoured by Google, Bing and DuckDuckGo,
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>fig.tight_layout()</span>
 <span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="7d3ee22f" class="cell">
+<div id="c9ce22df" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>))</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>ax.scatter(storage_A, storage_B, <span class="dv">5</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>ax.set_box_aspect(<span class="dv">1</span>)</span>
@@ -2527,7 +2527,7 @@ This is a request, not a control. It is honoured by Google, Bing and DuckDuckGo,
 </section>
 <section id="incoherent-feed-forward" class="level2">
 <h2 class="anchored" data-anchor-id="incoherent-feed-forward">4. Incoherent feed-forward</h2>
-<div id="aed3f37d" class="cell">
+<div id="ae683d3f" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>delta_ma <span class="op">=</span> <span class="fl">0.05</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>gamma_pa <span class="op">=</span> <span class="fl">0.1</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>delta_pa <span class="op">=</span> <span class="fl">0.02</span></span>
@@ -2593,7 +2593,7 @@ This is a request, not a control. It is honoured by Google, Bing and DuckDuckGo,
 </section>
 <section id="the-repressilator" class="level2">
 <h2 class="anchored" data-anchor-id="the-repressilator">5. The Repressilator</h2>
-<div id="8034a16c" class="cell">
+<div id="8169738c" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>delta_ma <span class="op">=</span> <span class="dv">100</span> <span class="op">*</span> <span class="fl">0.05</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>gamma_pa <span class="op">=</span> <span class="dv">100</span> <span class="op">*</span> <span class="fl">0.1</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>delta_pa <span class="op">=</span> <span class="dv">100</span> <span class="op">*</span> <span class="fl">0.02</span></span>
