@@ -2256,14 +2256,14 @@ This is a request, not a control. It is honoured by Google, Bing and DuckDuckGo,
 </header>
 
 
-<div id="bafbdfa1" class="cell" data-execution_count="1">
+<div id="ca3baa04" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="the-coffee-bean-model" class="level2">
 <h2 class="anchored" data-anchor-id="the-coffee-bean-model">The coffee bean model</h2>
 <p>A jar holds <code>N=10</code> scoops of coffee. Each day you drink one scoop’s worth and top the jar back up with decaf, so the fraction of the jar that is still caffeinated shrinks by a factor of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mn>1</mn><mi>/</mi><mi>N</mi></mrow><annotation encoding="application/x-tex">1 - 1/N</annotation></semantics></math> every day.</p>
-<div id="cell-fig-coffee" class="cell" data-execution_count="2">
+<div id="cell-fig-coffee" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">10</span>  <span class="co"># number of scoops in each jar</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>n_max <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> N  <span class="co"># max number of days to simulate</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2299,7 +2299,7 @@ Figure 1: Fraction of the jar still caffeinated, day by day, for a ten-scoop ja
 </section>
 <section id="caffeine-level-trajectory-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="caffeine-level-trajectory-analysis">Caffeine level trajectory analysis</h2>
-<div id="cell-fig-coffee-annotated" class="cell" data-execution_count="3">
+<div id="cell-fig-coffee-annotated" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>query_day<span class="op">=</span><span class="dv">9</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
@@ -2336,7 +2336,7 @@ Figure 2: The same run, with the eleventh day marked and labelled.
 </section>
 <section id="when-does-the-caffeine-level-fall-below-50" class="level2">
 <h2 class="anchored" data-anchor-id="when-does-the-caffeine-level-fall-below-50">When does the caffeine level fall below 50%?</h2>
-<div id="24ed8a6f" class="cell" data-execution_count="4">
+<div id="c2d0f7b1" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>below <span class="op">=</span> x <span class="op">&lt;</span> <span class="fl">0.5</span>  <span class="co"># one True/False per day</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>first_index <span class="op">=</span> np.argmax(below)</span>

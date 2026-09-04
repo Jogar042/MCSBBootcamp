@@ -8,7 +8,7 @@
 
 <meta name="author" content="Jun Allard">
 
-<title>Project 5: Complex systems and classical systems biology</title>
+<title>Project 5: Network motifs</title>
 <style>
 
 code{white-space: pre-wrap;}
@@ -2222,16 +2222,20 @@ This is a request, not a control. It is honoured by Google, Bing and DuckDuckGo,
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#part-1-the-effect-of-the-inhibitor" id="toc-part-1-the-effect-of-the-inhibitor" class="nav-link active" data-scroll-target="#part-1-the-effect-of-the-inhibitor">Part 1: The effect of the inhibitor</a></li>
-  <li><a href="#part-2-the-effect-of-the-activator" id="toc-part-2-the-effect-of-the-activator" class="nav-link" data-scroll-target="#part-2-the-effect-of-the-activator">Part 2: The effect of the activator</a></li>
+  <li><a href="#direct-negative-feedback" id="toc-direct-negative-feedback" class="nav-link active" data-scroll-target="#direct-negative-feedback">1. Direct negative feedback</a></li>
+  <li><a href="#indirect-negative-feedback" id="toc-indirect-negative-feedback" class="nav-link" data-scroll-target="#indirect-negative-feedback">2. Indirect negative feedback</a></li>
+  <li><a href="#double-negative-feedback" id="toc-double-negative-feedback" class="nav-link" data-scroll-target="#double-negative-feedback">3. Double negative feedback</a></li>
+  <li><a href="#incoherent-feed-forward" id="toc-incoherent-feed-forward" class="nav-link" data-scroll-target="#incoherent-feed-forward">4. Incoherent feed-forward</a></li>
+  <li><a href="#the-repressilator" id="toc-the-repressilator" class="nav-link" data-scroll-target="#the-repressilator">5. The Repressilator</a></li>
+  <li><a href="#fast-positive-plus-slow-negative-feedback" id="toc-fast-positive-plus-slow-negative-feedback" class="nav-link" data-scroll-target="#fast-positive-plus-slow-negative-feedback">6. Fast positive plus slow negative feedback</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="PS5_complex-systems.ipynb" download="PS5_complex-systems.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li><li><a href="PS5_complex-systems.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="PS5_network-motifs.ipynb" download="PS5_network-motifs.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li><li><a href="PS5_network-motifs.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Project 5: Complex systems and classical systems biology</h1>
+<h1 class="title">Project 5: Network motifs</h1>
 <p class="subtitle lead">MCSB Bootcamp — Mathematical and Computational Track</p>
 </div>
 
@@ -2255,32 +2259,412 @@ This is a request, not a control. It is honoured by Google, Bing and DuckDuckGo,
 </header>
 
 
-<p>Consider the simplified Guido–Collins system with an activator transcription factor and an inhibitor transcription factor.</p>
-<p>You may use the code in the <a href="https://allardjun.github.io/MCSBBootcamp/synthetic-biology-simplified.html">Synthetic biology, simplified</a> notebook, section 2.3. Its <code>dxdt</code> already takes both <code>C</code>, the activator concentration, and <code>I</code>, the inhibitor concentration.</p>
-<div id="1401aaa1" class="cell">
+<p>Below, five complex circuits are simulated.</p>
+<ol type="1">
+<li>Direct negative feedback</li>
+<li>Indirect negative feedback</li>
+<li>Double negative feedback</li>
+<li>Incoherent feed-forward</li>
+<li>The Repressilator</li>
+</ol>
+<p>They are simulated in loops, across a few conditions (parameters, noise levels, …). Run each chunk to see its figures.</p>
+<p>For each circuit:</p>
+<ul>
+<li>Describe the behavior exhibited by this circuit.</li>
+<li>When might this circuit be useful in biology? What functional role could it play?</li>
+<li>Think of examples when this circuit appears in a biological system.</li>
+</ul>
+<p>One of the circuits from the slides is missing here:</p>
+<ol start="6" type="1">
+<li>Fast positive feedback plus slow negative feedback.</li>
+</ol>
+<p>What functional role could it play? Hint: We have discussed it before. There is a textbox at the end of the notebook you can use to record your answer.</p>
+<div id="2e44293c" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> solve_ivp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="41b14694" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The model, copied from the Synthetic biology, simplified notebook, section 2.3.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="direct-negative-feedback" class="level2">
+<h2 class="anchored" data-anchor-id="direct-negative-feedback">1. Direct negative feedback</h2>
+<p>Three parameter sets are simulated: No negative feedback, intermediate amount of negative feedback, and lots of negative feedback.</p>
+<div id="95d32ee6" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>delta_ma <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>gamma_pa <span class="op">=</span> <span class="fl">0.02</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>delta_pa <span class="op">=</span> <span class="fl">0.01</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> [</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    {<span class="st">&quot;Kaa&quot;</span>: <span class="dv">0</span>, <span class="st">&quot;gamma_ma0&quot;</span>: <span class="dv">1</span>},</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    {<span class="st">&quot;Kaa&quot;</span>: <span class="fl">0.1</span>, <span class="st">&quot;gamma_ma0&quot;</span>: <span class="dv">5</span>},</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    {<span class="st">&quot;Kaa&quot;</span>: <span class="dv">1</span>, <span class="st">&quot;gamma_ma0&quot;</span>: <span class="dv">40</span>},</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="bu">len</span>(params), figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="dv">4</span>))</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i_param, ax <span class="kw">in</span> <span class="bu">zip</span>(<span class="bu">range</span>(<span class="bu">len</span>(params)), axes):</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    Kaa <span class="op">=</span> params[i_param][<span class="st">&quot;Kaa&quot;</span>]  <span class="co"># Strength (IC50^-1) of inhibition of A by A</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    gamma_ma0 <span class="op">=</span> params[i_param][<span class="st">&quot;gamma_ma0&quot;</span>]  <span class="co"># Baseline production rate mRNA for A</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> dxdt(t, state):</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        <span class="co">&quot;&quot;&quot;dma/dt and dpa/dt for a gene whose protein represses it.&quot;&quot;&quot;</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        ma, pa <span class="op">=</span> state</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        gamma_ma <span class="op">=</span> gamma_ma0 <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> Kaa <span class="op">*</span> pa)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        dma_dt <span class="op">=</span> <span class="op">+</span>gamma_ma <span class="op">-</span> delta_ma <span class="op">*</span> ma</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>        dpa_dt <span class="op">=</span> <span class="op">+</span>gamma_pa <span class="op">*</span> ma <span class="op">-</span> delta_pa <span class="op">*</span> pa</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> [dma_dt, dpa_dt]</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    sol <span class="op">=</span> solve_ivp(dxdt, [<span class="fl">0.0</span>, <span class="dv">600</span>], [<span class="dv">0</span>, <span class="dv">0</span>])</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    T <span class="op">=</span> sol.t</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> sol.y.T</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    ax.plot(T, X[:, <span class="dv">0</span>], <span class="st">&quot;-r&quot;</span>, linewidth<span class="op">=</span><span class="dv">3</span>)  <span class="co"># red for RNA</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    ax.plot(T, X[:, <span class="dv">1</span>], <span class="st">&quot;-&quot;</span>, color<span class="op">=</span>[<span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">1</span>], linewidth<span class="op">=</span><span class="dv">3</span>)  <span class="co"># purple for protein</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    ax.set_xlim(<span class="dv">0</span>, <span class="dv">600</span>)</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    ax.set_ylim(<span class="dv">0</span>, <span class="dv">80</span>)</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    ax.set_box_aspect(<span class="dv">1</span>)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(<span class="st">&quot;RNA and Protein&quot;</span>)</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">&quot;Time (seconds)&quot;</span>)</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>fig.tight_layout()</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="part-1-the-effect-of-the-inhibitor" class="level2">
-<h2 class="anchored" data-anchor-id="part-1-the-effect-of-the-inhibitor">Part 1: The effect of the inhibitor</h2>
-<p>Assume the concentration of inhibitor is fixed at 10 uM.</p>
-<p>Plot the steady-state amount of protein as a function of the activator concentration, but make the axis showing concentration of activator a logarithmic axis.</p>
-<p>What is the concentration of activator that results in half its maximal effect? This is called the EC50 of the activator.</p>
-<div id="0a3dfa64" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell markdown">
+<blockquote class="blockquote">
+<p><em>Your answer here.</em></p>
+<p><em>Direct negative feedback exhibits…</em></p>
+<p><em>This behavior could be useful in biological function when…</em></p>
+<p><em>An example of where this motif occurs in biology is…</em></p>
+</blockquote>
 </div>
 </section>
-<section id="part-2-the-effect-of-the-activator" class="level2">
-<h2 class="anchored" data-anchor-id="part-2-the-effect-of-the-activator">Part 2: The effect of the activator</h2>
-<p>Assume the concentration of activator is fixed at 10 uM.</p>
-<p>Plot the steady-state amount of protein as a function of the inhibitor concentration.</p>
-<p>What is the concentration of inhibitor that results in half its maximal inhibition? This is called the IC50 of the inhibitor.</p>
-<div id="a2aa3e27" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="indirect-negative-feedback" class="level2">
+<h2 class="anchored" data-anchor-id="indirect-negative-feedback">2. Indirect negative feedback</h2>
+<p>Two parameter sets are simulated: without negative feedback, and with negative feedback. In both cases, a signal is introduced at 60 seconds. And then, an even larger signal is introduced at 2000 seconds. For clarity, the plot is shown for the first 400 seconds, and then the same simulation is shown for the first 4000 seconds.</p>
+<div id="86a3ecce" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>delta_ma <span class="op">=</span> <span class="fl">0.08</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>gamma_pa <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>delta_pa <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>delta_mb <span class="op">=</span> <span class="fl">1e-4</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>gamma_pb <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>delta_pb <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> [</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    {<span class="st">&quot;title&quot;</span>: <span class="st">&quot;No feedback&quot;</span>, <span class="st">&quot;Kba&quot;</span>: <span class="dv">0</span>, <span class="st">&quot;Kab&quot;</span>: <span class="fl">1e4</span>, <span class="st">&quot;t_max&quot;</span>: <span class="dv">400</span>},</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    {<span class="st">&quot;title&quot;</span>: <span class="st">&quot;Feedback&quot;</span>, <span class="st">&quot;Kba&quot;</span>: <span class="fl">1.0</span>, <span class="st">&quot;Kab&quot;</span>: <span class="fl">1e4</span>, <span class="st">&quot;t_max&quot;</span>: <span class="dv">400</span>},</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    {<span class="st">&quot;title&quot;</span>: <span class="st">&quot;Feedback, long timescale&quot;</span>, <span class="st">&quot;Kba&quot;</span>: <span class="fl">1.0</span>, <span class="st">&quot;Kab&quot;</span>: <span class="fl">1e4</span>, <span class="st">&quot;t_max&quot;</span>: <span class="dv">4000</span>},</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># an input signal, e.g., externally-induced production</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> input_signal(t):</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span> <span class="op">*</span> (t <span class="op">&lt;</span> <span class="dv">60</span>) <span class="op">+</span> <span class="dv">100</span> <span class="op">*</span> (t <span class="op">&gt;</span> <span class="dv">60</span>) <span class="op">+</span> <span class="dv">300</span> <span class="op">*</span> (t <span class="op">&gt;</span> <span class="dv">2000</span>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i_param <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(params)):</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    Kba <span class="op">=</span> params[i_param][<span class="st">&quot;Kba&quot;</span>]  <span class="co"># Strength (IC50^-1) of inhibition of A by B</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    Kab <span class="op">=</span> params[i_param][<span class="st">&quot;Kab&quot;</span>]  <span class="co"># Strength (EC50^-1) of activation of B by A</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    t_max <span class="op">=</span> params[i_param][<span class="st">&quot;t_max&quot;</span>]</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> dxdt(t, state):</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>        <span class="co">&quot;&quot;&quot;A driven by an input and repressed by B, B activated by A.&quot;&quot;&quot;</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>        ma, pa, mb, pb <span class="op">=</span> state</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>        gamma_ma <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> Kba <span class="op">*</span> pb) <span class="op">*</span> (<span class="fl">1.0</span> <span class="op">+</span> input_signal(t))</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>        gamma_mb <span class="op">=</span> <span class="fl">1e-3</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> Kab <span class="op">*</span> pa)</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>        dma_dt <span class="op">=</span> <span class="op">+</span>gamma_ma <span class="op">-</span> delta_ma <span class="op">*</span> ma</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>        dpa_dt <span class="op">=</span> <span class="op">+</span>gamma_pa <span class="op">*</span> ma <span class="op">-</span> delta_pa <span class="op">*</span> pa</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>        dmb_dt <span class="op">=</span> <span class="op">+</span>gamma_mb <span class="op">-</span> delta_mb <span class="op">*</span> mb</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>        dpb_dt <span class="op">=</span> <span class="op">+</span>gamma_pb <span class="op">*</span> mb <span class="op">-</span> delta_pb <span class="op">*</span> pb</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> [dma_dt, dpa_dt, dmb_dt, dpb_dt]</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Start well before t = 0 so the model has settled by the time the input arrives.</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>    sol <span class="op">=</span> solve_ivp(dxdt, [<span class="op">-</span><span class="fl">10000.0</span>, t_max], [<span class="dv">20</span>, <span class="dv">20</span>, <span class="dv">0</span>, <span class="dv">0</span>])</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    <span class="co"># matplotlib autoscales the y-axis to everything handed to plot, not to what falls inside the x-limits, so the settling run before t = 0 would squash the part worth looking at.</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Drop it here rather than relying on set_xlim to hide it.</span></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>    visible <span class="op">=</span> sol.t <span class="op">&gt;=</span> <span class="dv">0</span></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>    T <span class="op">=</span> sol.t[visible]</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> sol.y.T[visible]</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>    fig, (ax_input, ax_a, ax_b) <span class="op">=</span> plt.subplots(<span class="dv">3</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">7</span>))</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>    ax_input.set_title(params[i_param][<span class="st">&quot;title&quot;</span>])</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>    ax_input.plot(T, input_signal(T), <span class="st">&quot;-k&quot;</span>, linewidth<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>    ax_input.set_ylabel(<span class="st">&quot;Input signal to A&quot;</span>)</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>    ax_input.set_xlabel(<span class="st">&quot;Time (seconds)&quot;</span>)</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>    ax_input.set_xlim(<span class="dv">0</span>, t_max)</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>    ax_a.plot(T, X[:, <span class="dv">1</span>], <span class="st">&quot;-&quot;</span>, color<span class="op">=</span>[<span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">1</span>], linewidth<span class="op">=</span><span class="dv">1</span>)  <span class="co"># purple</span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>    ax_a.set_ylabel(<span class="st">&quot;Protein A&quot;</span>)</span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>    ax_a.set_xlabel(<span class="st">&quot;Time (seconds)&quot;</span>)</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>    ax_a.set_xlim(<span class="dv">0</span>, t_max)</span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>    ax_b.plot(T, X[:, <span class="dv">3</span>], <span class="st">&quot;-&quot;</span>, color<span class="op">=</span>[<span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">1</span>], linewidth<span class="op">=</span><span class="dv">1</span>)  <span class="co"># purple for protein</span></span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>    ax_b.set_ylabel(<span class="st">&quot;Protein B&quot;</span>)</span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>    ax_b.set_xlabel(<span class="st">&quot;Time (seconds)&quot;</span>)</span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>    ax_b.set_xlim(<span class="dv">0</span>, t_max)</span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>    fig.tight_layout()</span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell markdown">
+<blockquote class="blockquote">
+<p><em>Your answer here.</em></p>
+<p><em>Indirect negative feedback exhibits…</em></p>
+<p><em>This behavior could be useful in biological function when…</em></p>
+<p><em>An example of where this motif occurs in biology is…</em></p>
+</blockquote>
+</div>
+</section>
+<section id="double-negative-feedback" class="level2">
+<h2 class="anchored" data-anchor-id="double-negative-feedback">3. Double negative feedback</h2>
+<p>Many simulations are performed at slightly different parameter sets (randomly selected). The steady states for all these simulations are plotted together.</p>
+<div id="543e9ad6" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">6</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>noisiness <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>noisiness2 <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>num_runs <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>storage_A <span class="op">=</span> np.zeros(num_runs)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>storage_B <span class="op">=</span> np.zeros(num_runs)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>fig, (ax_a, ax_b) <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">7</span>))</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i_run <span class="kw">in</span> <span class="bu">range</span>(num_runs):</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    delta_ma <span class="op">=</span> <span class="dv">1</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> noisiness <span class="op">*</span> rng.random())</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    gamma_pa <span class="op">=</span> <span class="dv">1</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> noisiness <span class="op">*</span> rng.random())</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    delta_pa <span class="op">=</span> <span class="dv">1</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> noisiness <span class="op">*</span> rng.random())</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    delta_mb <span class="op">=</span> <span class="dv">1</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> noisiness <span class="op">*</span> rng.standard_normal())</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    gamma_pb <span class="op">=</span> <span class="dv">1</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> noisiness <span class="op">*</span> rng.random())</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    delta_pb <span class="op">=</span> <span class="dv">1</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> noisiness <span class="op">*</span> rng.random())</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    Kba <span class="op">=</span> <span class="dv">1</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> noisiness2 <span class="op">*</span> rng.standard_normal())  <span class="co"># Strength (IC50^-1) of inhibition of A by B</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    Kab <span class="op">=</span> <span class="dv">1</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> noisiness2 <span class="op">*</span> rng.standard_normal())  <span class="co"># Strength (IC50^-1) of inhibition of B by A</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> dxdt(t, state):</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>        <span class="co">&quot;&quot;&quot;A and B, each repressing the other.&quot;&quot;&quot;</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        ma, pa, mb, pb <span class="op">=</span> state</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>        gamma_ma <span class="op">=</span> <span class="dv">3</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> <span class="bu">abs</span>(Kba <span class="op">*</span> pb) <span class="op">**</span> <span class="dv">3</span>)</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>        gamma_mb <span class="op">=</span> <span class="dv">3</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> <span class="bu">abs</span>(Kab <span class="op">*</span> pa) <span class="op">**</span> <span class="dv">3</span>)</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>        dma_dt <span class="op">=</span> <span class="op">+</span>gamma_ma <span class="op">-</span> delta_ma <span class="op">*</span> ma</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>        dpa_dt <span class="op">=</span> <span class="op">+</span>gamma_pa <span class="op">*</span> ma <span class="op">-</span> delta_pa <span class="op">*</span> pa</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>        dmb_dt <span class="op">=</span> <span class="op">+</span>gamma_mb <span class="op">-</span> delta_mb <span class="op">*</span> mb</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>        dpb_dt <span class="op">=</span> <span class="op">+</span>gamma_pb <span class="op">*</span> mb <span class="op">-</span> delta_pb <span class="op">*</span> pb</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> [dma_dt, dpa_dt, dmb_dt, dpb_dt]</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>    initial_condition <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> rng.random(<span class="dv">4</span>)</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>    sol <span class="op">=</span> solve_ivp(dxdt, [<span class="fl">0.0</span>, <span class="dv">60</span>], initial_condition)</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>    T <span class="op">=</span> sol.t</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> sol.y.T</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i_run <span class="op">&lt;</span> <span class="dv">9</span>:</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>        ax_a.plot(T, X[:, <span class="dv">0</span>], <span class="st">&quot;-r&quot;</span>)  <span class="co"># red for RNA</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>        ax_a.plot(T, X[:, <span class="dv">1</span>], <span class="st">&quot;-&quot;</span>, color<span class="op">=</span>[<span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">1</span>])  <span class="co"># purple</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>        ax_a.set_ylabel(<span class="st">&quot;RNA and Protein A&quot;</span>)</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>        ax_a.set_xlabel(<span class="st">&quot;Time (min)&quot;</span>)</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>        ax_b.plot(T, X[:, <span class="dv">2</span>], <span class="st">&quot;-r&quot;</span>)  <span class="co"># red for RNA</span></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>        ax_b.plot(T, X[:, <span class="dv">3</span>], <span class="st">&quot;-&quot;</span>, color<span class="op">=</span>[<span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">1</span>])  <span class="co"># purple</span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>        ax_b.set_ylabel(<span class="st">&quot;RNA and Protein B&quot;</span>)</span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>        ax_b.set_xlabel(<span class="st">&quot;Time (min)&quot;</span>)</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>    storage_A[i_run] <span class="op">=</span> X[<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>]</span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>    storage_B[i_run] <span class="op">=</span> X[<span class="op">-</span><span class="dv">1</span>, <span class="dv">3</span>]</span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>fig.tight_layout()</span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="fa6ff380" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fig, (ax_a, ax_b) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="fl">4.5</span>))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>ax_a.hist(storage_A, <span class="dv">50</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>ax_a.set_box_aspect(<span class="dv">1</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>ax_a.set_xlabel(<span class="st">&quot;Amount of Protein A&quot;</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>ax_a.set_ylabel(<span class="st">&quot;Number of runs&quot;</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>ax_b.hist(storage_B, <span class="dv">50</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>ax_b.set_box_aspect(<span class="dv">1</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>ax_b.set_xlabel(<span class="st">&quot;Amount of Protein B&quot;</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>ax_b.set_ylabel(<span class="st">&quot;Number of runs&quot;</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>fig.tight_layout()</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="7d3ee22f" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>))</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>ax.scatter(storage_A, storage_B, <span class="dv">5</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>ax.set_box_aspect(<span class="dv">1</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">&quot;Amount of Protein A&quot;</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">&quot;Amount of Protein B&quot;</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell markdown">
+<blockquote class="blockquote">
+<p><em>Your answer here.</em></p>
+<p><em>Double negative feedback exhibits…</em></p>
+<p><em>This behavior could be useful in biological function when…</em></p>
+<p><em>An example of where this motif occurs in biology is…</em></p>
+</blockquote>
+</div>
+</section>
+<section id="incoherent-feed-forward" class="level2">
+<h2 class="anchored" data-anchor-id="incoherent-feed-forward">4. Incoherent feed-forward</h2>
+<div id="aed3f37d" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>delta_ma <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>gamma_pa <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>delta_pa <span class="op">=</span> <span class="fl">0.02</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>delta_mb <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>gamma_pb <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>delta_pb <span class="op">=</span> <span class="fl">0.02</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>delta_mc <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>gamma_pc <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>delta_pc <span class="op">=</span> <span class="fl">0.02</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>gamma_ma <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>Kab <span class="op">=</span> <span class="dv">10</span>  <span class="co"># Strength (EC50^-1) of activation of B by A</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>Kac <span class="op">=</span> <span class="dv">10</span>  <span class="co"># Strength (EC50^-1) of activation of C by A</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>Kbc <span class="op">=</span> <span class="dv">10</span>  <span class="co"># Strength (IC50^-1) of inhibition of C by B</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> dxdt(t, state):</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;A drives B and C; B represses C.&quot;&quot;&quot;</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    ma, pa, mb, pb, mc, pc <span class="op">=</span> state</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    gamma_mb <span class="op">=</span> <span class="dv">10</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> (Kab <span class="op">*</span> pa))</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    gamma_mc <span class="op">=</span> <span class="dv">10</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> (Kac <span class="op">*</span> pa)) <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> Kbc <span class="op">*</span> pb)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    dma_dt <span class="op">=</span> <span class="op">+</span>gamma_ma <span class="op">-</span> delta_ma <span class="op">*</span> ma</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    dpa_dt <span class="op">=</span> <span class="op">+</span>gamma_pa <span class="op">*</span> ma <span class="op">-</span> delta_pa <span class="op">*</span> pa</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    dmb_dt <span class="op">=</span> <span class="op">+</span>gamma_mb <span class="op">-</span> delta_mb <span class="op">*</span> mb</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    dpb_dt <span class="op">=</span> <span class="op">+</span>gamma_pb <span class="op">*</span> mb <span class="op">-</span> delta_pb <span class="op">*</span> pb</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    dmc_dt <span class="op">=</span> <span class="op">+</span>gamma_mc <span class="op">-</span> delta_mc <span class="op">*</span> mc</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>    dpc_dt <span class="op">=</span> <span class="op">+</span>gamma_pc <span class="op">*</span> mc <span class="op">-</span> delta_pc <span class="op">*</span> pc</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [dma_dt, dpa_dt, dmb_dt, dpb_dt, dmc_dt, dpc_dt]</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>sol <span class="op">=</span> solve_ivp(dxdt, [<span class="fl">0.0</span>, <span class="dv">400</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>])</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> sol.t</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> sol.y.T</span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>fig, (ax_a, ax_b, ax_c) <span class="op">=</span> plt.subplots(<span class="dv">3</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">7</span>))</span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, (i_m, i_p), name <span class="kw">in</span> <span class="bu">zip</span>((ax_a, ax_b, ax_c), ((<span class="dv">0</span>, <span class="dv">1</span>), (<span class="dv">2</span>, <span class="dv">3</span>), (<span class="dv">4</span>, <span class="dv">5</span>)), <span class="st">&quot;ABC&quot;</span>):</span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>    ax.plot(T, X[:, i_m], <span class="st">&quot;-r&quot;</span>)  <span class="co"># red for RNA</span></span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>    ax.plot(T, X[:, i_p], <span class="st">&quot;-&quot;</span>, color<span class="op">=</span>[<span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">1</span>])  <span class="co"># purple</span></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(<span class="ss">f&quot;RNA and Protein </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">&quot;Time (seconds)&quot;</span>)</span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>fig.tight_layout()</span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell markdown">
+<blockquote class="blockquote">
+<p><em>Your answer here.</em></p>
+<p><em>Incoherent feedforward exhibits…</em></p>
+<p><em>This behavior could be useful in biological function when…</em></p>
+<p><em>An example of where this motif occurs in biology is…</em></p>
+</blockquote>
+</div>
+</section>
+<section id="the-repressilator" class="level2">
+<h2 class="anchored" data-anchor-id="the-repressilator">5. The Repressilator</h2>
+<div id="8034a16c" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>delta_ma <span class="op">=</span> <span class="dv">100</span> <span class="op">*</span> <span class="fl">0.05</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>gamma_pa <span class="op">=</span> <span class="dv">100</span> <span class="op">*</span> <span class="fl">0.1</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>delta_pa <span class="op">=</span> <span class="dv">100</span> <span class="op">*</span> <span class="fl">0.02</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>delta_mb <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>gamma_pb <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>delta_pb <span class="op">=</span> <span class="fl">0.02</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>delta_mc <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>gamma_pc <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>delta_pc <span class="op">=</span> <span class="fl">0.02</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>Kca <span class="op">=</span> <span class="dv">100</span>  <span class="co"># Strength (IC50^-1) of inhibition of A by C</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>Kab <span class="op">=</span> <span class="dv">100</span>  <span class="co"># Strength (IC50^-1) of inhibition of B by A</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>Kbc <span class="op">=</span> <span class="dv">100</span>  <span class="co"># Strength (IC50^-1) of inhibition of C by B</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> dxdt(t, state):</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;A ring of three repressors: C represses A, A represses B, B represses C.&quot;&quot;&quot;</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    ma, pa, mb, pb, mc, pc <span class="op">=</span> state</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    gamma_ma <span class="op">=</span> <span class="dv">10</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> (Kca <span class="op">*</span> pc))</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    gamma_mb <span class="op">=</span> <span class="dv">10</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> (Kab <span class="op">*</span> pa))</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    gamma_mc <span class="op">=</span> <span class="dv">10</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> (Kbc <span class="op">*</span> pb))</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    dma_dt <span class="op">=</span> <span class="op">+</span>gamma_ma <span class="op">-</span> delta_ma <span class="op">*</span> ma</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    dpa_dt <span class="op">=</span> <span class="op">+</span>gamma_pa <span class="op">*</span> ma <span class="op">-</span> delta_pa <span class="op">*</span> pa</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>    dmb_dt <span class="op">=</span> <span class="op">+</span>gamma_mb <span class="op">-</span> delta_mb <span class="op">*</span> mb</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>    dpb_dt <span class="op">=</span> <span class="op">+</span>gamma_pb <span class="op">*</span> mb <span class="op">-</span> delta_pb <span class="op">*</span> pb</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>    dmc_dt <span class="op">=</span> <span class="op">+</span>gamma_mc <span class="op">-</span> delta_mc <span class="op">*</span> mc</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>    dpc_dt <span class="op">=</span> <span class="op">+</span>gamma_pc <span class="op">*</span> mc <span class="op">-</span> delta_pc <span class="op">*</span> pc</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [dma_dt, dpa_dt, dmb_dt, dpb_dt, dmc_dt, dpc_dt]</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>sol <span class="op">=</span> solve_ivp(dxdt, [<span class="dv">0</span>, <span class="fl">1e5</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>])</span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> sol.t</span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> sol.y.T</span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>fig, (ax_a, ax_b, ax_c) <span class="op">=</span> plt.subplots(<span class="dv">3</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">7</span>))</span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, (i_m, i_p), name <span class="kw">in</span> <span class="bu">zip</span>((ax_a, ax_b, ax_c), ((<span class="dv">0</span>, <span class="dv">1</span>), (<span class="dv">2</span>, <span class="dv">3</span>), (<span class="dv">4</span>, <span class="dv">5</span>)), <span class="st">&quot;ABC&quot;</span>):</span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>    ax.plot(T, X[:, i_m], <span class="st">&quot;-r&quot;</span>)  <span class="co"># red for RNA</span></span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>    ax.plot(T, X[:, i_p], <span class="st">&quot;-&quot;</span>, color<span class="op">=</span>[<span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">1</span>])  <span class="co"># purple</span></span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(<span class="ss">f&quot;RNA and Protein </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">&quot;Time (seconds)&quot;</span>)</span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a>    ax.set_xscale(<span class="st">&quot;log&quot;</span>)</span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>    ax.set_xlim(<span class="fl">1e-4</span>, <span class="fl">1e5</span>)</span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a>fig.tight_layout()</span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell markdown">
+<blockquote class="blockquote">
+<p><em>Your answer here.</em></p>
+<p><em>The Repressilator exhibits…</em></p>
+<p><em>This behavior could be useful in biological function when…</em></p>
+<p><em>An example of where this motif occurs in biology is…</em></p>
+</blockquote>
+</div>
+</section>
+<section id="fast-positive-plus-slow-negative-feedback" class="level2">
+<h2 class="anchored" data-anchor-id="fast-positive-plus-slow-negative-feedback">6. Fast positive plus slow negative feedback</h2>
+<div class="cell markdown">
+<blockquote class="blockquote">
+<p><em>Your answer here.</em></p>
+<p><em>Fast positive feedback plus slow negative feedback could play the functional role of…</em></p>
+</blockquote>
 </div>
 </section>
 

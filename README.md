@@ -8,11 +8,10 @@ Some course material used in the incoming-student bootcamp for graduate students
 
 - [Project 3: Discrete logistic growth](docs/PS3_discrete-logistic.ipynb)
 - [Project 4: Phosphorylation–dephosphorylation](docs/PS4_futile-cycle.ipynb)
-- [Project 5: Complex systems and classical systems biology](docs/PS5_complex-systems.ipynb)
+- [Project 5: Network motifs](docs/PS5_network-motifs.ipynb)
 - [Project 6: FitzHugh-Nagumo and excitability](docs/PS6_fitzhugh-nagumo.ipynb)
 - [Project 7: Bacterial growth and parameter fitting](docs/PS7_bacterial-growth.ipynb)
 - [Coffee bean titration](docs/coffee-bean-titration.ipynb)
-- [Network motifs](docs/network-motifs.ipynb)
 - [Numerical calculus quick-start](docs/numerical-calculus-quick-start.ipynb)
 - [Python test drive](docs/python-test-drive.ipynb)
 - [Synthetic biology, simplified](docs/synthetic-biology-simplified.ipynb)
